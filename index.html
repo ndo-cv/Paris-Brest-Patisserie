@@ -1,1 +1,3587 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Paris-Brest Patisserie — Artisan Coffee, Elegant Brunch & French-Inspired Patisserie in Hampden Square, London N14. Fresh pastries, specialty coffee, beautifully prepared breakfast and lunch.">
+<meta name="keywords" content="Paris-Brest Patisserie, patisserie London, French café N14, artisan coffee Southgate, brunch London, croissants, eggs benedict, specialty coffee">
+<meta property="og:title" content="Paris-Brest Patisserie | Artisan Coffee & French Patisserie London">
+<meta property="og:description" content="Experience handcrafted pastries, specialty coffee and beautifully prepared breakfast and lunch in the heart of Hampden Square.">
+<title>Paris-Brest Patisserie | Artisan Coffee & French Patisserie | London N14</title>
 
+<style>
+  /* ============================================
+     DESIGN TOKENS & RESET
+  ============================================ */
+  :root {
+    --cream: #F8F5EF;
+    --blue: #81A0D3;
+    --accent: #D28E75;
+    --navy: #24344D;
+    --beige: #E8DDD2;
+    --soft-white: #FFFDFC;
+    --text-dark: #1a2535;
+    --text-mid: #4a5568;
+    --text-light: #8a9ab5;
+    --glass: rgba(255,253,252,0.75);
+    --glass-border: rgba(129,160,211,0.2);
+    --shadow-soft: 0 8px 40px rgba(36,52,77,0.08);
+    --shadow-medium: 0 16px 60px rgba(36,52,77,0.12);
+    --shadow-strong: 0 24px 80px rgba(36,52,77,0.18);
+    --radius-sm: 12px;
+    --radius-md: 20px;
+    --radius-lg: 32px;
+    --radius-xl: 48px;
+    --transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    --font-display: 'Georgia', 'Times New Roman', serif;
+    --font-body: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  }
+
+  [data-theme="dark"] {
+    --cream: #1a1f2e;
+    --blue: #6b8ec4;
+    --accent: #c4785e;
+    --navy: #e8ddd2;
+    --beige: #2a3142;
+    --soft-white: #222840;
+    --text-dark: #f0ebe3;
+    --text-mid: #b8c4d8;
+    --text-light: #7a8ba8;
+    --glass: rgba(26,31,46,0.85);
+    --glass-border: rgba(107,142,196,0.25);
+    --shadow-soft: 0 8px 40px rgba(0,0,0,0.25);
+    --shadow-medium: 0 16px 60px rgba(0,0,0,0.35);
+    --shadow-strong: 0 24px 80px rgba(0,0,0,0.45);
+  }
+
+  *, *::before, *::after {
+    margin: 0; padding: 0; box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    font-size: 16px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    background-color: var(--cream);
+    color: var(--text-dark);
+    font-family: var(--font-body);
+    overflow-x: hidden;
+    transition: background-color 0.5s ease, color 0.5s ease;
+    line-height: 1.6;
+  }
+
+  img { max-width: 100%; display: block; }
+  a { text-decoration: none; color: inherit; }
+  button { cursor: pointer; border: none; background: none; font-family: inherit; }
+  ul { list-style: none; }
+
+  /* ============================================
+     AMBIENT BACKGROUND SYSTEM
+  ============================================ */
+  #ambient-canvas {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.6;
+  }
+
+  .ambient-orb {
+    position: fixed;
+    border-radius: 50%;
+    filter: blur(80px);
+    pointer-events: none;
+    z-index: 0;
+    animation: orbFloat 20s ease-in-out infinite;
+  }
+
+  .orb-1 {
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(129,160,211,0.12) 0%, transparent 70%);
+    top: -100px; right: -100px;
+    animation-delay: 0s;
+  }
+
+  .orb-2 {
+    width: 500px; height: 500px;
+    background: radial-gradient(circle, rgba(210,142,117,0.08) 0%, transparent 70%);
+    bottom: 10%; left: -150px;
+    animation-delay: -8s;
+  }
+
+  .orb-3 {
+    width: 400px; height: 400px;
+    background: radial-gradient(circle, rgba(232,221,210,0.15) 0%, transparent 70%);
+    top: 40%; left: 40%;
+    animation-delay: -14s;
+  }
+
+  @keyframes orbFloat {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    33% { transform: translate(30px, -40px) scale(1.05); }
+    66% { transform: translate(-20px, 30px) scale(0.95); }
+  }
+
+  /* ============================================
+     NAVIGATION
+  ============================================ */
+  #navbar {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 1000;
+    padding: 20px 0;
+    transition: var(--transition);
+  }
+
+  #navbar.scrolled {
+    padding: 12px 0;
+    background: rgba(248,245,239,0.92);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--glass-border);
+    box-shadow: var(--shadow-soft);
+  }
+
+  [data-theme="dark"] #navbar.scrolled {
+    background: rgba(26,31,46,0.92);
+  }
+
+  .nav-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+  }
+
+  .nav-logo {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    flex-shrink: 0;
+  }
+
+  .nav-logo-main {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--navy);
+    letter-spacing: -0.02em;
+    line-height: 1;
+    transition: var(--transition);
+  }
+
+  .nav-logo-sub {
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--blue);
+    margin-top: 2px;
+    font-weight: 500;
+  }
+
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex: 1;
+    justify-content: center;
+  }
+
+  .nav-links a {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--text-mid);
+    padding: 8px 16px;
+    border-radius: 100px;
+    transition: var(--transition);
+    letter-spacing: 0.02em;
+    white-space: nowrap;
+  }
+
+  .nav-links a:hover {
+    color: var(--navy);
+    background: rgba(129,160,211,0.1);
+  }
+
+  .nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-shrink: 0;
+  }
+
+  .btn-dark-toggle {
+    width: 42px; height: 42px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(129,160,211,0.1);
+    border: 1px solid var(--glass-border);
+    color: var(--text-mid);
+    font-size: 1.1rem;
+    transition: var(--transition);
+  }
+
+  .btn-dark-toggle:hover {
+    background: rgba(129,160,211,0.2);
+    color: var(--navy);
+  }
+
+  .btn-book {
+    background: var(--navy);
+    color: var(--soft-white);
+    padding: 10px 22px;
+    border-radius: 100px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    transition: var(--transition);
+    white-space: nowrap;
+  }
+
+  .btn-book:hover {
+    background: var(--blue);
+    transform: translateY(-1px);
+    box-shadow: 0 8px 24px rgba(129,160,211,0.35);
+  }
+
+  .nav-hamburger {
+    display: none;
+    width: 42px; height: 42px;
+    border-radius: 50%;
+    background: rgba(129,160,211,0.1);
+    border: 1px solid var(--glass-border);
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    flex-shrink: 0;
+  }
+
+  .nav-hamburger span {
+    display: block;
+    width: 18px; height: 2px;
+    background: var(--text-dark);
+    border-radius: 2px;
+    transition: var(--transition);
+  }
+
+  .mobile-menu {
+    display: none;
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(248,245,239,0.97);
+    backdrop-filter: blur(20px);
+    z-index: 999;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s ease;
+  }
+
+  [data-theme="dark"] .mobile-menu {
+    background: rgba(26,31,46,0.97);
+  }
+
+  .mobile-menu.open {
+    display: flex;
+    opacity: 1;
+    pointer-events: all;
+  }
+
+  .mobile-menu a {
+    font-family: var(--font-display);
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--navy);
+    padding: 12px 32px;
+    border-radius: var(--radius-md);
+    transition: var(--transition);
+    letter-spacing: -0.02em;
+  }
+
+  .mobile-menu a:hover {
+    background: rgba(129,160,211,0.1);
+    color: var(--blue);
+  }
+
+  .mobile-menu-close {
+    position: absolute;
+    top: 24px; right: 24px;
+    width: 48px; height: 48px;
+    border-radius: 50%;
+    background: rgba(129,160,211,0.1);
+    font-size: 1.4rem;
+    color: var(--text-dark);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* ============================================
+     HERO SECTION
+  ============================================ */
+  #hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+  }
+
+  .hero-image-wrapper {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+  }
+
+  .hero-image-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    transition: transform 0.1s linear;
+  }
+
+  .hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      105deg,
+      rgba(248,245,239,0.88) 0%,
+      rgba(248,245,239,0.65) 45%,
+      rgba(248,245,239,0.15) 100%
+    );
+    z-index: 2;
+  }
+
+  [data-theme="dark"] .hero-overlay {
+    background: linear-gradient(
+      105deg,
+      rgba(26,31,46,0.92) 0%,
+      rgba(26,31,46,0.7) 45%,
+      rgba(26,31,46,0.2) 100%
+    );
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 3;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 140px 40px 80px;
+    width: 100%;
+  }
+
+  .hero-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(255,253,252,0.8);
+    border: 1px solid var(--glass-border);
+    backdrop-filter: blur(10px);
+    padding: 8px 18px;
+    border-radius: 100px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--blue);
+    margin-bottom: 28px;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeUp 0.8s ease forwards 0.3s;
+  }
+
+  [data-theme="dark"] .hero-eyebrow {
+    background: rgba(26,31,46,0.8);
+  }
+
+  .hero-eyebrow .dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: #4CAF50;
+    animation: pulse 2s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(1.3); }
+  }
+
+  .hero-title {
+    font-family: var(--font-display);
+    font-size: clamp(2.4rem, 5vw, 4.2rem);
+    font-weight: 700;
+    color: var(--navy);
+    line-height: 1.15;
+    letter-spacing: -0.03em;
+    max-width: 680px;
+    margin-bottom: 24px;
+    opacity: 0;
+    transform: translateY(30px);
+    animation: fadeUp 0.9s ease forwards 0.5s;
+  }
+
+  .hero-title em {
+    font-style: italic;
+    color: var(--blue);
+  }
+
+  .hero-subtitle {
+    font-size: clamp(1rem, 1.8vw, 1.2rem);
+    color: var(--text-mid);
+    max-width: 520px;
+    line-height: 1.7;
+    margin-bottom: 40px;
+    opacity: 0;
+    transform: translateY(30px);
+    animation: fadeUp 0.9s ease forwards 0.7s;
+  }
+
+  .hero-actions {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-bottom: 56px;
+    opacity: 0;
+    transform: translateY(30px);
+    animation: fadeUp 0.9s ease forwards 0.9s;
+  }
+
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--navy);
+    color: var(--soft-white);
+    padding: 16px 32px;
+    border-radius: 100px;
+    font-size: 1rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    transition: var(--transition);
+    box-shadow: 0 8px 32px rgba(36,52,77,0.25);
+  }
+
+  .btn-primary:hover {
+    background: var(--blue);
+    transform: translateY(-2px);
+    box-shadow: 0 12px 40px rgba(129,160,211,0.4);
+  }
+
+  .btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(255,253,252,0.85);
+    border: 1.5px solid var(--glass-border);
+    color: var(--navy);
+    padding: 15px 28px;
+    border-radius: 100px;
+    font-size: 1rem;
+    font-weight: 600;
+    backdrop-filter: blur(10px);
+    transition: var(--transition);
+  }
+
+  .btn-secondary:hover {
+    background: var(--soft-white);
+    border-color: var(--blue);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-soft);
+  }
+
+  .hero-trust {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    flex-wrap: wrap;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeUp 0.9s ease forwards 1.1s;
+  }
+
+  .hero-rating {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(255,253,252,0.85);
+    border: 1px solid var(--glass-border);
+    backdrop-filter: blur(10px);
+    padding: 12px 20px;
+    border-radius: var(--radius-sm);
+  }
+
+  [data-theme="dark"] .hero-rating {
+    background: rgba(26,31,46,0.85);
+  }
+
+  .hero-rating .stars {
+    color: #F5A623;
+    font-size: 1rem;
+    letter-spacing: -1px;
+  }
+
+  .hero-rating .rating-text {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-dark);
+  }
+
+  .hero-rating .rating-sub {
+    font-size: 0.75rem;
+    color: var(--text-light);
+  }
+
+  .hero-phone {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(129,160,211,0.12);
+    border: 1px solid rgba(129,160,211,0.2);
+    color: var(--navy);
+    padding: 12px 20px;
+    border-radius: var(--radius-sm);
+    font-size: 0.9rem;
+    font-weight: 600;
+    transition: var(--transition);
+  }
+
+  .hero-phone:hover {
+    background: rgba(129,160,211,0.2);
+  }
+
+  @keyframes fadeUp {
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ============================================
+     SECTION SYSTEM
+  ============================================ */
+  section {
+    position: relative;
+    z-index: 1;
+  }
+
+  .section-pad {
+    padding: 100px 0;
+  }
+
+  .container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 40px;
+  }
+
+  .section-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 16px;
+  }
+
+  .section-eyebrow::before {
+    content: '';
+    display: block;
+    width: 24px; height: 1px;
+    background: var(--accent);
+  }
+
+  .section-title {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 4vw, 3.2rem);
+    font-weight: 700;
+    color: var(--navy);
+    line-height: 1.2;
+    letter-spacing: -0.03em;
+    margin-bottom: 20px;
+  }
+
+  .section-lead {
+    font-size: 1.1rem;
+    color: var(--text-mid);
+    line-height: 1.7;
+    max-width: 560px;
+  }
+
+  /* ============================================
+     FEATURES BAR
+  ============================================ */
+  #features-bar {
+    background: var(--navy);
+    padding: 20px 0;
+    overflow: hidden;
+    position: relative;
+    z-index: 2;
+  }
+
+  .features-scroll {
+    display: flex;
+    gap: 0;
+    animation: scrollFeatures 30s linear infinite;
+    width: max-content;
+  }
+
+  .features-scroll:hover { animation-play-state: paused; }
+
+  .feature-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 0 36px;
+    border-right: 1px solid rgba(255,255,255,0.1);
+    white-space: nowrap;
+  }
+
+  .feature-item .feat-icon {
+    font-size: 1.1rem;
+  }
+
+  .feature-item .feat-label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: rgba(255,253,252,0.85);
+    letter-spacing: 0.05em;
+  }
+
+  @keyframes scrollFeatures {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+
+  /* ============================================
+     ABOUT SECTION
+  ============================================ */
+  #about {
+    background: var(--soft-white);
+  }
+
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+  }
+
+  .about-content {}
+
+  .about-story {
+    font-size: 1.05rem;
+    color: var(--text-mid);
+    line-height: 1.85;
+    margin-bottom: 20px;
+  }
+
+  .about-story strong {
+    color: var(--navy);
+    font-weight: 600;
+  }
+
+  .about-signature {
+    margin-top: 32px;
+    font-family: var(--font-display);
+    font-size: 1.4rem;
+    color: var(--accent);
+    font-style: italic;
+  }
+
+  .about-visual {
+    position: relative;
+  }
+
+  .about-image-wrap {
+    position: relative;
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+    box-shadow: var(--shadow-strong);
+  }
+
+  .about-image-wrap img {
+    width: 100%;
+    height: 600px;
+    object-fit: cover;
+    transition: transform 0.8s ease;
+  }
+
+  .about-image-wrap:hover img {
+    transform: scale(1.04);
+  }
+
+  .about-badge {
+    position: absolute;
+    bottom: -20px;
+    left: -20px;
+    background: var(--accent);
+    color: var(--soft-white);
+    border-radius: var(--radius-lg);
+    padding: 24px 28px;
+    box-shadow: var(--shadow-medium);
+  }
+
+  .about-badge .badge-num {
+    font-family: var(--font-display);
+    font-size: 2.4rem;
+    font-weight: 700;
+    line-height: 1;
+    display: block;
+  }
+
+  .about-badge .badge-text {
+    font-size: 0.8rem;
+    opacity: 0.9;
+    font-weight: 500;
+    margin-top: 4px;
+    display: block;
+  }
+
+  .about-floating-card {
+    position: absolute;
+    top: 32px;
+    right: -24px;
+    background: var(--glass);
+    backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-md);
+    padding: 18px 22px;
+    box-shadow: var(--shadow-medium);
+    animation: floatCard 6s ease-in-out infinite;
+  }
+
+  @keyframes floatCard {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+  }
+
+  .about-floating-card .card-icon { font-size: 1.4rem; margin-bottom: 6px; }
+  .about-floating-card .card-title {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--navy);
+    white-space: nowrap;
+  }
+  .about-floating-card .card-sub {
+    font-size: 0.75rem;
+    color: var(--text-light);
+    white-space: nowrap;
+  }
+
+  /* ============================================
+     STATS COUNTER SECTION
+  ============================================ */
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+    margin-top: 64px;
+  }
+
+  .stat-card {
+    background: var(--glass);
+    backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-lg);
+    padding: 36px 28px;
+    text-align: center;
+    transition: var(--transition);
+    box-shadow: var(--shadow-soft);
+  }
+
+  .stat-card:hover {
+    transform: translateY(-6px);
+    box-shadow: var(--shadow-medium);
+    border-color: rgba(129,160,211,0.3);
+  }
+
+  .stat-icon {
+    font-size: 2rem;
+    margin-bottom: 12px;
+    display: block;
+  }
+
+  .stat-number {
+    font-family: var(--font-display);
+    font-size: 2.8rem;
+    font-weight: 700;
+    color: var(--navy);
+    line-height: 1;
+    display: block;
+    margin-bottom: 8px;
+  }
+
+  .stat-label {
+    font-size: 0.85rem;
+    color: var(--text-light);
+    font-weight: 500;
+    letter-spacing: 0.04em;
+  }
+
+  /* ============================================
+     INTERIOR SHOWCASE
+  ============================================ */
+  #interior {
+    overflow: hidden;
+    background: var(--cream);
+  }
+
+  .interior-parallax {
+    position: relative;
+    height: 680px;
+    overflow: hidden;
+    border-radius: var(--radius-xl);
+    margin: 0 40px;
+  }
+
+  .interior-parallax img {
+    width: 100%;
+    height: 130%;
+    object-fit: cover;
+    object-position: center;
+    position: absolute;
+    top: -15%;
+    transition: transform 0.1s linear;
+  }
+
+  .interior-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to right,
+      rgba(36,52,77,0.7) 0%,
+      rgba(36,52,77,0.3) 50%,
+      rgba(36,52,77,0.1) 100%
+    );
+    z-index: 1;
+  }
+
+  .interior-content {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    padding: 60px;
+  }
+
+  .interior-card {
+    max-width: 500px;
+  }
+
+  .interior-card .section-eyebrow { color: rgba(255,253,252,0.7); }
+  .interior-card .section-eyebrow::before { background: rgba(255,253,252,0.5); }
+
+  .interior-card .section-title {
+    color: var(--soft-white);
+    margin-bottom: 20px;
+  }
+
+  .interior-card p {
+    color: rgba(255,253,252,0.82);
+    font-size: 1.05rem;
+    line-height: 1.7;
+    margin-bottom: 20px;
+  }
+
+  .interior-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 28px;
+  }
+
+  .interior-tag {
+    background: rgba(255,253,252,0.15);
+    border: 1px solid rgba(255,253,252,0.25);
+    color: rgba(255,253,252,0.9);
+    padding: 8px 16px;
+    border-radius: 100px;
+    font-size: 0.82rem;
+    font-weight: 500;
+    backdrop-filter: blur(10px);
+  }
+
+  /* ============================================
+     MENU SECTION
+  ============================================ */
+  #menu {
+    background: var(--beige);
+  }
+
+  [data-theme="dark"] #menu {
+    background: var(--beige);
+  }
+
+  .menu-header {
+    text-align: center;
+    margin-bottom: 48px;
+  }
+
+  .menu-tabs {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+    margin-bottom: 48px;
+    padding: 6px;
+    background: var(--glass);
+    border: 1px solid var(--glass-border);
+    border-radius: 100px;
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+    backdrop-filter: blur(20px);
+  }
+
+  .menu-tab {
+    padding: 10px 22px;
+    border-radius: 100px;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--text-mid);
+    transition: var(--transition);
+    cursor: pointer;
+    letter-spacing: 0.02em;
+    white-space: nowrap;
+  }
+
+  .menu-tab.active,
+  .menu-tab:hover {
+    background: var(--navy);
+    color: var(--soft-white);
+    box-shadow: 0 4px 16px rgba(36,52,77,0.2);
+  }
+
+  .menu-panel {
+    display: none;
+  }
+
+  .menu-panel.active {
+    display: block;
+    animation: panelFade 0.4s ease;
+  }
+
+  @keyframes panelFade {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .menu-category-title {
+    font-family: var(--font-display);
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 24px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--glass-border);
+    letter-spacing: -0.02em;
+  }
+
+  .menu-items-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 16px;
+    margin-bottom: 48px;
+  }
+
+  .menu-item-card {
+    background: var(--glass);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-md);
+    padding: 22px 24px;
+    backdrop-filter: blur(20px);
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 16px;
+    transition: var(--transition);
+    box-shadow: var(--shadow-soft);
+  }
+
+  .menu-item-card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-medium);
+    border-color: rgba(129,160,211,0.3);
+  }
+
+  .menu-item-info {
+    flex: 1;
+  }
+
+  .menu-item-name {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 6px;
+    line-height: 1.3;
+  }
+
+  .menu-item-desc {
+    font-size: 0.82rem;
+    color: var(--text-light);
+    line-height: 1.5;
+  }
+
+  .menu-item-price {
+    font-family: var(--font-display);
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--accent);
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .menu-note {
+    text-align: center;
+    font-size: 0.85rem;
+    color: var(--text-light);
+    padding: 20px;
+    background: rgba(129,160,211,0.06);
+    border-radius: var(--radius-md);
+    margin-top: 16px;
+  }
+
+  /* ============================================
+     GALLERY SECTION
+  ============================================ */
+  #gallery {
+    background: var(--soft-white);
+    overflow: hidden;
+  }
+
+  .gallery-header {
+    text-align: center;
+    margin-bottom: 48px;
+    padding: 0 40px;
+  }
+
+  .gallery-track-wrapper {
+    overflow: hidden;
+    cursor: grab;
+    -webkit-user-select: none;
+    user-select: none;
+  }
+
+  .gallery-track-wrapper:active { cursor: grabbing; }
+
+  .gallery-track {
+    display: flex;
+    gap: 20px;
+    padding: 0 40px 20px;
+    transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+
+  .gallery-item {
+    flex-shrink: 0;
+    width: 380px;
+    height: 300px;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow-medium);
+    transition: var(--transition);
+    cursor: pointer;
+    position: relative;
+  }
+
+  .gallery-item:hover {
+    transform: scale(1.03);
+    box-shadow: var(--shadow-strong);
+  }
+
+  .gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s ease;
+    pointer-events: none;
+  }
+
+  .gallery-item:hover img {
+    transform: scale(1.08);
+  }
+
+  .gallery-item-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(36,52,77,0.5) 0%, transparent 60%);
+    opacity: 0;
+    transition: var(--transition);
+    display: flex;
+    align-items: flex-end;
+    padding: 20px;
+  }
+
+  .gallery-item:hover .gallery-item-overlay {
+    opacity: 1;
+  }
+
+  .gallery-item-overlay span {
+    color: white;
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+  }
+
+  .gallery-controls {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 32px;
+    padding: 0 40px;
+  }
+
+  .gallery-btn {
+    width: 48px; height: 48px;
+    border-radius: 50%;
+    background: var(--glass);
+    border: 1px solid var(--glass-border);
+    backdrop-filter: blur(10px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+    color: var(--navy);
+    transition: var(--transition);
+    box-shadow: var(--shadow-soft);
+  }
+
+  .gallery-btn:hover {
+    background: var(--navy);
+    color: var(--soft-white);
+    transform: scale(1.08);
+  }
+
+  /* Lightbox */
+  .lightbox {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(10,15,25,0.95);
+    z-index: 9999;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(10px);
+  }
+
+  .lightbox.open {
+    display: flex;
+    animation: lightboxFade 0.3s ease;
+  }
+
+  @keyframes lightboxFade {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  .lightbox-inner {
+    position: relative;
+    max-width: 90vw;
+    max-height: 90vh;
+  }
+
+  .lightbox-inner img {
+    max-width: 90vw;
+    max-height: 85vh;
+    border-radius: var(--radius-lg);
+    box-shadow: 0 40px 120px rgba(0,0,0,0.6);
+    object-fit: contain;
+  }
+
+  .lightbox-close {
+    position: fixed;
+    top: 24px; right: 24px;
+    width: 48px; height: 48px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.2);
+    color: white;
+    font-size: 1.3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transition);
+  }
+
+  .lightbox-close:hover {
+    background: rgba(255,255,255,0.2);
+  }
+
+  .lightbox-nav {
+    position: fixed;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 52px; height: 52px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.2);
+    color: white;
+    font-size: 1.3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transition);
+  }
+
+  .lightbox-nav:hover { background: rgba(255,255,255,0.2); }
+  .lightbox-prev { left: 20px; }
+  .lightbox-next { right: 20px; }
+
+  /* ============================================
+     REVIEWS SECTION
+  ============================================ */
+  #reviews {
+    background: var(--cream);
+    overflow: hidden;
+  }
+
+  .reviews-header {
+    text-align: center;
+    margin-bottom: 48px;
+  }
+
+  /* Aggregate Trust Section */
+  .trust-aggregate {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    max-width: 900px;
+    margin: 0 auto 64px;
+  }
+
+  .trust-card {
+    background: var(--glass);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-lg);
+    padding: 28px 20px;
+    text-align: center;
+    backdrop-filter: blur(20px);
+    box-shadow: var(--shadow-soft);
+    transition: var(--transition);
+  }
+
+  .trust-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-medium);
+  }
+
+  .trust-card .t-icon {
+    font-size: 1.6rem;
+    margin-bottom: 8px;
+    display: block;
+  }
+
+  .trust-card .t-value {
+    font-family: var(--font-display);
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--navy);
+    display: block;
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+
+  .trust-card .t-label {
+    font-size: 0.78rem;
+    color: var(--text-light);
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  /* Reviews Carousel */
+  .reviews-carousel-wrapper {
+    overflow: hidden;
+    position: relative;
+  }
+
+  .reviews-carousel-wrapper::before,
+  .reviews-carousel-wrapper::after {
+    content: '';
+    position: absolute;
+    top: 0; bottom: 0;
+    width: 80px;
+    z-index: 2;
+    pointer-events: none;
+  }
+
+  .reviews-carousel-wrapper::before {
+    left: 0;
+    background: linear-gradient(to right, var(--cream), transparent);
+  }
+
+  .reviews-carousel-wrapper::after {
+    right: 0;
+    background: linear-gradient(to left, var(--cream), transparent);
+  }
+
+  .reviews-track {
+    display: flex;
+    gap: 24px;
+    padding: 20px 80px;
+    animation: scrollReviews 55s linear infinite;
+    width: max-content;
+  }
+
+  .reviews-track:hover { animation-play-state: paused; }
+
+  @keyframes scrollReviews {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+
+  .review-card {
+    flex-shrink: 0;
+    width: 380px;
+    background: var(--glass);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-lg);
+    padding: 32px;
+    backdrop-filter: blur(20px);
+    box-shadow: var(--shadow-soft);
+    display: flex;
+    flex-direction: column;
+    transition: var(--transition);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .review-card::before {
+    content: '"';
+    position: absolute;
+    top: 12px; right: 20px;
+    font-family: var(--font-display);
+    font-size: 5rem;
+    color: rgba(129,160,211,0.1);
+    line-height: 1;
+  }
+
+  .review-card:hover {
+    transform: translateY(-6px);
+    box-shadow: var(--shadow-medium);
+    border-color: rgba(129,160,211,0.3);
+  }
+
+  .review-stars {
+    display: flex;
+    gap: 3px;
+    margin-bottom: 16px;
+  }
+
+  .review-star {
+    color: #F5A623;
+    font-size: 1rem;
+  }
+
+  .review-text {
+    font-size: 0.92rem;
+    color: var(--text-mid);
+    line-height: 1.72;
+    flex: 1;
+    margin-bottom: 24px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .review-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 18px;
+    border-top: 1px solid var(--glass-border);
+  }
+
+  .review-author {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .review-avatar {
+    width: 40px; height: 40px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--blue), var(--accent));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    font-weight: 700;
+    color: white;
+    flex-shrink: 0;
+  }
+
+  .review-name {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--navy);
+    display: block;
+  }
+
+  .review-date {
+    font-size: 0.75rem;
+    color: var(--text-light);
+  }
+
+  .review-google-badge {
+    width: 24px; height: 24px;
+    opacity: 0.6;
+    flex-shrink: 0;
+  }
+
+  /* ============================================
+     FEATURES SECTION
+  ============================================ */
+  #features {
+    background: var(--navy);
+    padding: 100px 0;
+  }
+
+  .features-header {
+    text-align: center;
+    margin-bottom: 60px;
+  }
+
+  .features-header .section-eyebrow { color: rgba(129,160,211,0.7); }
+  .features-header .section-eyebrow::before { background: rgba(129,160,211,0.5); }
+  .features-header .section-title { color: var(--soft-white); }
+
+  .features-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+  }
+
+  .feature-card {
+    background: rgba(255,253,252,0.05);
+    border: 1px solid rgba(255,253,252,0.1);
+    border-radius: var(--radius-lg);
+    padding: 36px 28px;
+    text-align: center;
+    transition: var(--transition);
+  }
+
+  .feature-card:hover {
+    background: rgba(255,253,252,0.08);
+    border-color: rgba(129,160,211,0.3);
+    transform: translateY(-6px);
+  }
+
+  .feature-card .feat-icon {
+    font-size: 2.4rem;
+    display: block;
+    margin-bottom: 16px;
+  }
+
+  .feature-card .feat-title {
+    font-size: 1rem;
+    font-weight: 700;
+    color: rgba(255,253,252,0.9);
+    margin-bottom: 8px;
+  }
+
+  .feature-card .feat-desc {
+    font-size: 0.82rem;
+    color: rgba(255,253,252,0.5);
+    line-height: 1.6;
+  }
+
+  /* ============================================
+     CONTACT SECTION
+  ============================================ */
+  #visit {
+    background: var(--soft-white);
+  }
+
+  .visit-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: start;
+  }
+
+  .visit-info {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+  }
+
+  .info-block {
+    background: var(--glass);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-lg);
+    padding: 28px;
+    backdrop-filter: blur(20px);
+    box-shadow: var(--shadow-soft);
+  }
+
+  .info-block h3 {
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--blue);
+    margin-bottom: 16px;
+  }
+
+  .hours-list { display: flex; flex-direction: column; gap: 8px; }
+  .hours-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--glass-border);
+    font-size: 0.9rem;
+  }
+  .hours-row:last-child { border-bottom: none; }
+  .hours-day { color: var(--text-mid); font-weight: 500; }
+  .hours-time { color: var(--navy); font-weight: 700; }
+  .hours-today { color: var(--accent); font-weight: 700; }
+
+  .address-text {
+    color: var(--text-mid);
+    font-size: 1rem;
+    line-height: 1.7;
+  }
+
+  .contact-btns {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .contact-btn {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 16px 22px;
+    border-radius: var(--radius-md);
+    font-size: 0.95rem;
+    font-weight: 600;
+    transition: var(--transition);
+    border: 1.5px solid transparent;
+  }
+
+  .contact-btn.phone {
+    background: var(--navy);
+    color: white;
+    box-shadow: 0 4px 20px rgba(36,52,77,0.2);
+  }
+
+  .contact-btn.phone:hover {
+    background: var(--blue);
+    box-shadow: 0 8px 30px rgba(129,160,211,0.35);
+    transform: translateY(-2px);
+  }
+
+  .contact-btn.whatsapp {
+    background: #25D366;
+    color: white;
+    box-shadow: 0 4px 20px rgba(37,211,102,0.25);
+  }
+
+  .contact-btn.whatsapp:hover {
+    background: #20ba59;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(37,211,102,0.35);
+  }
+
+  .contact-btn.directions {
+    background: var(--glass);
+    border-color: var(--glass-border);
+    color: var(--navy);
+    backdrop-filter: blur(10px);
+  }
+
+  .contact-btn.directions:hover {
+    border-color: var(--blue);
+    background: rgba(129,160,211,0.08);
+    transform: translateY(-2px);
+  }
+
+  .contact-btn .btn-icon {
+    font-size: 1.2rem;
+  }
+
+  /* Contact Form */
+  .contact-form-wrap {
+    background: var(--glass);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-xl);
+    padding: 48px;
+    backdrop-filter: blur(20px);
+    box-shadow: var(--shadow-medium);
+  }
+
+  .contact-form-wrap h3 {
+    font-family: var(--font-display);
+    font-size: 1.8rem;
+    color: var(--navy);
+    margin-bottom: 8px;
+  }
+
+  .contact-form-wrap p {
+    color: var(--text-light);
+    font-size: 0.9rem;
+    margin-bottom: 32px;
+  }
+
+  .form-group {
+    margin-bottom: 20px;
+  }
+
+  .form-group label {
+    display: block;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--text-mid);
+    margin-bottom: 8px;
+    letter-spacing: 0.03em;
+  }
+
+  .form-group input,
+  .form-group textarea,
+  .form-group select {
+    width: 100%;
+    padding: 14px 18px;
+    background: rgba(255,253,252,0.6);
+    border: 1.5px solid var(--glass-border);
+    border-radius: var(--radius-sm);
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    color: var(--text-dark);
+    transition: var(--transition);
+    outline: none;
+  }
+
+  [data-theme="dark"] .form-group input,
+  [data-theme="dark"] .form-group textarea,
+  [data-theme="dark"] .form-group select {
+    background: rgba(26,31,46,0.6);
+    color: var(--text-dark);
+  }
+
+  .form-group input::placeholder,
+  .form-group textarea::placeholder {
+    color: var(--text-light);
+  }
+
+  .form-group input:focus,
+  .form-group textarea:focus,
+  .form-group select:focus {
+    border-color: var(--blue);
+    background: rgba(255,253,252,0.9);
+    box-shadow: 0 0 0 4px rgba(129,160,211,0.12);
+  }
+
+  [data-theme="dark"] .form-group input:focus,
+  [data-theme="dark"] .form-group textarea:focus {
+    background: rgba(26,31,46,0.9);
+  }
+
+  .form-group textarea { min-height: 120px; resize: vertical; }
+
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+
+  .btn-submit {
+    width: 100%;
+    padding: 16px;
+    background: var(--navy);
+    color: white;
+    border-radius: var(--radius-md);
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    transition: var(--transition);
+    box-shadow: 0 4px 20px rgba(36,52,77,0.25);
+    margin-top: 8px;
+  }
+
+  .btn-submit:hover {
+    background: var(--blue);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 32px rgba(129,160,211,0.4);
+  }
+
+  /* Map */
+  .map-wrap {
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+    box-shadow: var(--shadow-medium);
+    height: 280px;
+    margin-top: 24px;
+    border: 1px solid var(--glass-border);
+  }
+
+  .map-wrap iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+  }
+
+  /* ============================================
+     FOOTER
+  ============================================ */
+  #footer {
+    background: var(--navy);
+    padding: 80px 0 32px;
+  }
+
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 48px;
+    margin-bottom: 60px;
+  }
+
+  .footer-brand .logo {
+    font-family: var(--font-display);
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--soft-white);
+    margin-bottom: 4px;
+  }
+
+  .footer-brand .logo-sub {
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(129,160,211,0.7);
+    margin-bottom: 20px;
+  }
+
+  .footer-brand p {
+    font-size: 0.9rem;
+    color: rgba(255,253,252,0.5);
+    line-height: 1.75;
+    margin-bottom: 24px;
+    max-width: 280px;
+  }
+
+  .footer-socials {
+    display: flex;
+    gap: 10px;
+  }
+
+  .social-icon {
+    width: 40px; height: 40px;
+    border-radius: 50%;
+    background: rgba(255,253,252,0.06);
+    border: 1px solid rgba(255,253,252,0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    color: rgba(255,253,252,0.6);
+    transition: var(--transition);
+  }
+
+  .social-icon:hover {
+    background: rgba(129,160,211,0.2);
+    border-color: rgba(129,160,211,0.4);
+    color: var(--soft-white);
+    transform: translateY(-2px);
+  }
+
+  .footer-col h4 {
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: rgba(255,253,252,0.4);
+    margin-bottom: 20px;
+  }
+
+  .footer-col ul { display: flex; flex-direction: column; gap: 10px; }
+
+  .footer-col ul li a {
+    font-size: 0.9rem;
+    color: rgba(255,253,252,0.6);
+    transition: var(--transition);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .footer-col ul li a:hover {
+    color: var(--soft-white);
+    padding-left: 4px;
+  }
+
+  .footer-hours { display: flex; flex-direction: column; gap: 8px; }
+  .fh-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.82rem;
+    color: rgba(255,253,252,0.5);
+    gap: 12px;
+  }
+  .fh-row .fh-day { color: rgba(255,253,252,0.6); }
+  .fh-row .fh-time { color: rgba(255,253,252,0.85); font-weight: 600; white-space: nowrap; }
+
+  .footer-bottom {
+    border-top: 1px solid rgba(255,253,252,0.08);
+    padding-top: 32px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+
+  .footer-bottom p {
+    font-size: 0.82rem;
+    color: rgba(255,253,252,0.35);
+  }
+
+  .footer-bottom a {
+    color: rgba(255,253,252,0.5);
+    transition: var(--transition);
+  }
+  .footer-bottom a:hover { color: var(--soft-white); }
+
+  /* ============================================
+     SCROLL REVEAL SYSTEM
+  ============================================ */
+  .reveal {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+
+  .reveal.revealed {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .reveal-delay-1 { transition-delay: 0.1s; }
+  .reveal-delay-2 { transition-delay: 0.2s; }
+  .reveal-delay-3 { transition-delay: 0.3s; }
+  .reveal-delay-4 { transition-delay: 0.4s; }
+
+  /* ============================================
+     FLOATING STEAM PARTICLES
+  ============================================ */
+  .steam-container {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    pointer-events: none;
+    overflow: hidden;
+    height: 200px;
+    z-index: 0;
+  }
+
+  .steam-particle {
+    position: absolute;
+    bottom: 0;
+    width: 6px; height: 6px;
+    background: rgba(255,253,252,0.15);
+    border-radius: 50%;
+    animation: steam 8s ease-in-out infinite;
+  }
+
+  @keyframes steam {
+    0% { transform: translateY(0) translateX(0) scale(1); opacity: 0.3; }
+    50% { transform: translateY(-80px) translateX(20px) scale(1.5); opacity: 0.15; }
+    100% { transform: translateY(-160px) translateX(-10px) scale(2); opacity: 0; }
+  }
+
+  /* ============================================
+     SCROLL TO TOP
+  ============================================ */
+  .scroll-top {
+    position: fixed;
+    bottom: 32px; right: 32px;
+    width: 52px; height: 52px;
+    border-radius: 50%;
+    background: var(--navy);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    box-shadow: var(--shadow-medium);
+    transition: var(--transition);
+    z-index: 500;
+    opacity: 0;
+    pointer-events: none;
+    transform: scale(0.8);
+  }
+
+  .scroll-top.visible {
+    opacity: 1;
+    pointer-events: all;
+    transform: scale(1);
+  }
+
+  .scroll-top:hover {
+    background: var(--blue);
+    transform: scale(1.08) translateY(-2px);
+  }
+
+  /* ============================================
+     NOTIFICATION / SUCCESS
+  ============================================ */
+  .toast {
+    position: fixed;
+    bottom: 100px; right: 32px;
+    background: var(--navy);
+    color: white;
+    padding: 16px 24px;
+    border-radius: var(--radius-md);
+    font-size: 0.9rem;
+    font-weight: 600;
+    box-shadow: var(--shadow-strong);
+    z-index: 9999;
+    transform: translateY(20px);
+    opacity: 0;
+    transition: var(--transition);
+    max-width: 300px;
+  }
+
+  .toast.show {
+    transform: translateY(0);
+    opacity: 1;
+  }
+
+  /* ============================================
+     RESPONSIVE — TABLET
+  ============================================ */
+  @media (max-width: 1100px) {
+    .about-grid { grid-template-columns: 1fr; gap: 48px; }
+    .about-visual { max-width: 600px; }
+    .stats-grid { grid-template-columns: repeat(2, 1fr); }
+    .features-grid { grid-template-columns: repeat(2, 1fr); }
+    .trust-aggregate { grid-template-columns: repeat(2, 1fr); }
+    .visit-grid { grid-template-columns: 1fr; }
+    .footer-grid { grid-template-columns: 1fr 1fr; gap: 36px; }
+  }
+
+  @media (max-width: 900px) {
+    .nav-links { display: none; }
+    .nav-hamburger { display: flex; }
+    .btn-book { display: none; }
+    .nav-container { padding: 0 24px; }
+    .container { padding: 0 24px; }
+    .interior-parallax { margin: 0 24px; height: 480px; }
+    .interior-content { padding: 40px; }
+    .menu-tabs { 
+      width: 100%;
+      overflow-x: auto;
+      border-radius: var(--radius-lg);
+      justify-content: flex-start;
+    }
+    .contact-form-wrap { padding: 32px 24px; }
+    .section-pad { padding: 72px 0; }
+  }
+
+  /* ============================================
+     RESPONSIVE — MOBILE
+  ============================================ */
+  @media (max-width: 640px) {
+    .hero-content { padding: 120px 24px 60px; }
+    .hero-trust { flex-direction: column; align-items: flex-start; gap: 12px; }
+    .about-image-wrap img { height: 380px; }
+    .about-badge { left: 12px; bottom: -12px; }
+    .about-floating-card { display: none; }
+    .stats-grid { grid-template-columns: 1fr 1fr; gap: 16px; }
+    .stat-card { padding: 24px 16px; }
+    .stat-number { font-size: 2rem; }
+    .interior-parallax { height: 580px; margin: 0; border-radius: 0; }
+    .interior-content { padding: 32px 24px; }
+    .interior-card .section-title { font-size: 1.6rem; }
+    .menu-items-grid { grid-template-columns: 1fr; }
+    .gallery-item { width: 280px; height: 220px; }
+    .review-card { width: 320px; padding: 24px; }
+    .features-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
+    .trust-aggregate { grid-template-columns: 1fr 1fr; gap: 12px; }
+    .footer-grid { grid-template-columns: 1fr; gap: 32px; }
+    .footer-bottom { flex-direction: column; text-align: center; }
+    .form-row { grid-template-columns: 1fr; }
+    .scroll-top { bottom: 20px; right: 20px; }
+    .lightbox-nav { display: none; }
+    .menu-tabs {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      padding: 4px;
+    }
+    .menu-tabs::-webkit-scrollbar { display: none; }
+    .menu-tab { padding: 8px 16px; font-size: 0.82rem; }
+  }
+
+  @media (max-width: 380px) {
+    .hero-title { font-size: 2rem; }
+    .btn-primary, .btn-secondary { padding: 13px 20px; font-size: 0.9rem; }
+    .gallery-item { width: 240px; height: 190px; }
+    .review-card { width: 290px; }
+  }
+
+  /* ============================================
+     PASTRY FLOATING SHAPES
+  ============================================ */
+  .pastry-shapes {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+    z-index: 0;
+  }
+
+  .pastry-shape {
+    position: absolute;
+    border-radius: 50%;
+    opacity: 0.04;
+    animation: shapeFloat 25s ease-in-out infinite;
+  }
+
+  @keyframes shapeFloat {
+    0%, 100% { transform: rotate(0deg) translateY(0); }
+    33% { transform: rotate(120deg) translateY(-20px); }
+    66% { transform: rotate(240deg) translateY(15px); }
+  }
+
+  /* Mouse follow effect */
+  .cursor-glow {
+    position: fixed;
+    width: 300px; height: 300px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(129,160,211,0.06) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+    transform: translate(-50%, -50%);
+    transition: transform 0.15s ease;
+  }
+</style>
+</head>
+<body>
+
+<!-- Ambient Background Orbs -->
+<div class="ambient-orb orb-1"></div>
+<div class="ambient-orb orb-2"></div>
+<div class="ambient-orb orb-3"></div>
+
+<!-- Mouse Glow -->
+<div class="cursor-glow" id="cursorGlow"></div>
+
+<!-- ============================================
+     NAVIGATION
+============================================ -->
+<nav id="navbar">
+  <div class="nav-container">
+    <a href="#hero" class="nav-logo">
+      <span class="nav-logo-main">Paris-Brest</span>
+      <span class="nav-logo-sub">Patisserie · London N14</span>
+    </a>
+
+    <div class="nav-links">
+      <a href="#hero">Home</a>
+      <a href="#about">About</a>
+      <a href="#menu">Menu</a>
+      <a href="#gallery">Gallery</a>
+      <a href="#reviews">Reviews</a>
+      <a href="#visit">Visit Us</a>
+    </div>
+
+    <div class="nav-actions">
+      <button class="btn-dark-toggle" id="darkToggle" aria-label="Toggle dark mode">
+        <span id="darkIcon">🌙</span>
+      </button>
+      <a href="tel:02083615800" class="btn-book">Book a Table</a>
+      <button class="nav-hamburger" id="menuToggle" aria-label="Open menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- Mobile Menu -->
+<div class="mobile-menu" id="mobileMenu">
+  <button class="mobile-menu-close" id="menuClose">✕</button>
+  <a href="#hero" onclick="closeMobileMenu()">Home</a>
+  <a href="#about" onclick="closeMobileMenu()">About</a>
+  <a href="#menu" onclick="closeMobileMenu()">Menu</a>
+  <a href="#gallery" onclick="closeMobileMenu()">Gallery</a>
+  <a href="#reviews" onclick="closeMobileMenu()">Reviews</a>
+  <a href="#visit" onclick="closeMobileMenu()">Visit Us</a>
+  <a href="tel:02083615800" onclick="closeMobileMenu()" style="color: var(--accent); margin-top: 12px; font-size: 1.5rem;">📞 Call Us</a>
+</div>
+
+<!-- ============================================
+     HERO SECTION
+============================================ -->
+<section id="hero">
+  <div class="hero-image-wrapper" id="heroImageWrap">
+    <img src="https://i.ibb.co/MkyYPmYN/c6.png" alt="Paris-Brest Patisserie interior" id="heroImg" loading="eager">
+  </div>
+  <div class="hero-overlay"></div>
+
+  <!-- Floating steam particles -->
+  <div class="steam-container">
+    <div class="steam-particle" style="left:15%;animation-delay:0s;animation-duration:7s"></div>
+    <div class="steam-particle" style="left:25%;animation-delay:2s;animation-duration:9s"></div>
+    <div class="steam-particle" style="left:40%;animation-delay:4s;animation-duration:6s"></div>
+    <div class="steam-particle" style="left:60%;animation-delay:1s;animation-duration:8s"></div>
+    <div class="steam-particle" style="left:75%;animation-delay:3s;animation-duration:10s"></div>
+    <div class="steam-particle" style="left:85%;animation-delay:5s;animation-duration:7s"></div>
+  </div>
+
+  <div class="hero-content">
+    <div class="hero-eyebrow">
+      <span class="dot"></span>
+      Open Today · 7am – 6pm
+    </div>
+
+    <h1 class="hero-title">
+      Artisan Coffee, <em>Elegant</em> Brunch & French-Inspired Patisserie
+    </h1>
+
+    <p class="hero-subtitle">
+      Experience handcrafted pastries, specialty coffee and beautifully prepared breakfast and lunch in the heart of Hampden Square.
+    </p>
+
+    <div class="hero-actions">
+      <a href="#menu" class="btn-primary">
+        ☕ View Menu
+      </a>
+      <a href="#visit" class="btn-secondary">
+        📍 Visit Us
+      </a>
+    </div>
+
+    <div class="hero-trust">
+      <div class="hero-rating">
+        <div>
+          <div class="stars">★★★★★</div>
+          <div style="display:flex;align-items:baseline;gap:6px;margin-top:4px;">
+            <span class="rating-text">4.6 on Google</span>
+          </div>
+          <div class="rating-sub">Local Favourite · Hampden Square</div>
+        </div>
+      </div>
+      <a href="tel:02083615800" class="hero-phone">
+        📞 020 8361 5800
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================
+     FEATURES BAR
+============================================ -->
+<div id="features-bar" aria-hidden="true">
+  <div class="features-scroll">
+    <!-- First set -->
+    <div class="feature-item"><span class="feat-icon">☕</span><span class="feat-label">Specialty Coffee</span></div>
+    <div class="feature-item"><span class="feat-icon">🥐</span><span class="feat-label">Fresh Artisan Pastries</span></div>
+    <div class="feature-item"><span class="feat-icon">🍳</span><span class="feat-label">Breakfast & Brunch</span></div>
+    <div class="feature-item"><span class="feat-icon">🌿</span><span class="feat-label">Vegetarian Options</span></div>
+    <div class="feature-item"><span class="feat-icon">📶</span><span class="feat-label">Free WiFi</span></div>
+    <div class="feature-item"><span class="feat-icon">🐶</span><span class="feat-label">Dog Friendly</span></div>
+    <div class="feature-item"><span class="feat-icon">💻</span><span class="feat-label">Laptop Friendly</span></div>
+    <div class="feature-item"><span class="feat-icon">👨‍👩‍👧</span><span class="feat-label">Family Friendly</span></div>
+    <div class="feature-item"><span class="feat-icon">🇫🇷</span><span class="feat-label">French-Inspired</span></div>
+    <div class="feature-item"><span class="feat-icon">🏆</span><span class="feat-label">Award-Worthy Quality</span></div>
+    <!-- Duplicate for infinite loop -->
+    <div class="feature-item"><span class="feat-icon">☕</span><span class="feat-label">Specialty Coffee</span></div>
+    <div class="feature-item"><span class="feat-icon">🥐</span><span class="feat-label">Fresh Artisan Pastries</span></div>
+    <div class="feature-item"><span class="feat-icon">🍳</span><span class="feat-label">Breakfast & Brunch</span></div>
+    <div class="feature-item"><span class="feat-icon">🌿</span><span class="feat-label">Vegetarian Options</span></div>
+    <div class="feature-item"><span class="feat-icon">📶</span><span class="feat-label">Free WiFi</span></div>
+    <div class="feature-item"><span class="feat-icon">🐶</span><span class="feat-label">Dog Friendly</span></div>
+    <div class="feature-item"><span class="feat-icon">💻</span><span class="feat-label">Laptop Friendly</span></div>
+    <div class="feature-item"><span class="feat-icon">👨‍👩‍👧</span><span class="feat-label">Family Friendly</span></div>
+    <div class="feature-item"><span class="feat-icon">🇫🇷</span><span class="feat-label">French-Inspired</span></div>
+    <div class="feature-item"><span class="feat-icon">🏆</span><span class="feat-label">Award-Worthy Quality</span></div>
+  </div>
+</div>
+
+<!-- ============================================
+     ABOUT SECTION
+============================================ -->
+<section id="about" class="section-pad">
+  <div class="container">
+    <div class="about-grid">
+      <!-- Content -->
+      <div class="about-content reveal">
+        <div class="section-eyebrow">Our Story</div>
+        <h2 class="section-title">Where Paris Meets<br>Your Neighbourhood</h2>
+
+        <p class="about-story">
+          Paris-Brest Patisserie was born from a single belief: that <strong>exceptional food and coffee should be accessible to everyone</strong>, without a queue, without a pretentious atmosphere, and without compromise on quality.
+        </p>
+        <p class="about-story">
+          Nestled in the heart of Hampden Square, we've spent years perfecting the art of the <strong>French-inspired morning</strong> — from the perfectly laminated layers of a fresh croissant to the velvety pour of a handcrafted flat white. Every item on our menu is prepared with seasonal ingredients, sourced from trusted local and artisan suppliers.
+        </p>
+        <p class="about-story">
+          Our kitchen is alive before dawn. Pastries cool on racks as the first coffee is dialled in. The morning light fills our café with warmth before a single customer walks through the door. This is the standard we hold ourselves to — <strong>every single day</strong>.
+        </p>
+        <p class="about-story">
+          Beyond the food, Paris-Brest is a place. A meeting point for the neighbourhood. Somewhere you bring a friend, open a laptop, arrive with family, or sit quietly with a book and a café au lait. The atmosphere is deliberately <strong>unhurried, warm, and entirely yours</strong>.
+        </p>
+
+        <div class="about-signature">— Crafted with love, served with pride.</div>
+      </div>
+
+      <!-- Visual -->
+      <div class="about-visual reveal reveal-delay-2">
+        <div class="about-image-wrap">
+          <img src="https://i.ibb.co/rfkZ7vp9/c7.png" alt="Paris-Brest Patisserie interior atmosphere" loading="lazy">
+        </div>
+
+        <div class="about-badge">
+          <span class="badge-num">7</span>
+          <span class="badge-text">Years Serving<br>the Community</span>
+        </div>
+
+        <div class="about-floating-card">
+          <div class="card-icon">🥐</div>
+          <div class="card-title">Baked Fresh Daily</div>
+          <div class="card-sub">From 7am every morning</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Stats -->
+    <div class="stats-grid">
+      <div class="stat-card reveal">
+        <span class="stat-icon">☕</span>
+        <span class="stat-number" data-count="58000">0</span>
+        <span class="stat-label">Coffees Served</span>
+      </div>
+      <div class="stat-card reveal reveal-delay-1">
+        <span class="stat-icon">🥐</span>
+        <span class="stat-number" data-count="120000">0</span>
+        <span class="stat-label">Fresh Pastries</span>
+      </div>
+      <div class="stat-card reveal reveal-delay-2">
+        <span class="stat-icon">⭐</span>
+        <span class="stat-number" data-count="9800">0</span>
+        <span class="stat-label">Happy Customers</span>
+      </div>
+      <div class="stat-card reveal reveal-delay-3">
+        <span class="stat-icon">🏆</span>
+        <span class="stat-number" data-count="7">0</span>
+        <span class="stat-label">Years Serving Community</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================
+     INTERIOR SHOWCASE
+============================================ -->
+<section id="interior" class="section-pad">
+  <div style="text-align:center;padding:0 40px;margin-bottom:40px;" class="reveal">
+    <div class="section-eyebrow">Our Space</div>
+    <h2 class="section-title">A Place to Pause, Breathe & Savour</h2>
+  </div>
+
+  <div class="interior-parallax reveal" id="interiorParallax">
+    <img src="https://i.ibb.co/rfkZ7vp9/c7.png" alt="Paris-Brest Patisserie interior" id="interiorImg" loading="lazy">
+    <div class="interior-overlay"></div>
+    <div class="interior-content">
+      <div class="interior-card">
+        <div class="section-eyebrow">Hampden Square, London N14</div>
+        <h2 class="section-title" style="font-size:2.2rem;">Your daily retreat, always waiting.</h2>
+        <p>
+          Designed to feel like your favourite corner of Paris — warm timber surfaces, soft natural light, and the gentle soundtrack of milk being steamed and conversations flowing.
+        </p>
+        <p>
+          Whether you're settling in for a solo brunch, joining friends for a leisurely morning, or finding a quiet corner to work, Paris-Brest offers the perfect setting for every occasion.
+        </p>
+        <div class="interior-tags">
+          <span class="interior-tag">🪑 Comfortable Seating</span>
+          <span class="interior-tag">💻 Laptop Friendly</span>
+          <span class="interior-tag">👨‍👩‍👧 Family Welcoming</span>
+          <span class="interior-tag">🐶 Dog Friendly</span>
+          <span class="interior-tag">📶 Free WiFi</span>
+          <span class="interior-tag">☕ Relaxed Pace</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================
+     MENU SECTION
+============================================ -->
+<section id="menu" class="section-pad">
+  <div class="container">
+    <div class="menu-header reveal">
+      <div class="section-eyebrow">Our Menu</div>
+      <h2 class="section-title">Handcrafted, Every Morning</h2>
+      <p class="section-lead" style="margin:0 auto;text-align:center;">From the first croissant of the day to your afternoon indulgence — everything is made with care.</p>
+    </div>
+
+    <!-- Tabs -->
+    <div class="menu-tabs reveal">
+      <button class="menu-tab active" data-panel="breakfast">🍳 Breakfast</button>
+      <button class="menu-tab" data-panel="crepes">🥞 Crêpes</button>
+      <button class="menu-tab" data-panel="salads">🥗 Salads</button>
+      <button class="menu-tab" data-panel="sandwiches">🥪 Sandwiches</button>
+      <button class="menu-tab" data-panel="mains">🍽 Mains</button>
+      <button class="menu-tab" data-panel="drinks">☕ Drinks</button>
+      <button class="menu-tab" data-panel="baked">🥐 Baked Goods</button>
+    </div>
+
+    <!-- BREAKFAST PANEL -->
+    <div class="menu-panel active" id="panel-breakfast">
+      <h3 class="menu-category-title">Breakfast</h3>
+      <div class="menu-items-grid">
+        <div class="menu-item-card"><div class="menu-item-info"><div class="menu-item-name">Free Range Eggs (Any Style)</div><div class="menu-item-desc">Served on toasted sourdough or white bloomer</div></div><div class="menu-item-price">£5.95</div></div>
+        <div class="menu-item-card"><div class="menu-item-info"><div class="menu-item-name">Eggs Royale</div><div class="menu-item-desc">Smoked salmon, poached eggs, hollandaise on English muffin</div></div><div class="menu-item-price">£8.50</div></div>
+        <div class="menu-item-card"><div class="menu-item-info"><div class="menu-item-name">Eggs Benedict</div><div class="menu-item-desc">Honey-roast ham, poached eggs, silky hollandaise</div></div><div class="menu-item-price">£8.95</div></div>
+        <div class="menu-item-card"><div class="menu-item-info"><div class="menu-item-name">Eggs Florentine</div><div class="menu-item-desc">Wilted spinach, poached eggs, hollandaise sauce</div></div><div class="menu-item-price">£8.95</div></div>
+        <div class="menu-item-card"><div class="menu-item-info"><div class="menu-item-name">Poached Eggs with Avocado Purée</div><div class="menu-item-desc">House-seasoned avocado, poached eggs, chilli flakes</div></div><div class="menu-item-price">£8.95</div></div>
+        <div class="menu-item-card"><div class="menu-item-info"><div class="menu-item-name">Croque Madame</div><div class="menu-item-desc">Ham, gruyère, béchamel, topped with a fried egg</div></div><div class="menu-item-price">£7.95</div></div>
+        <div class="menu-item-card"><div class="menu-item-info"><div class="menu-item-name">Croque Monsieur</div><div class="menu-item-desc">Ham, gruyère, béchamel on toasted pain de mie</div></div><div class="menu-item-price">£7.50</div></div>
+        <div class="menu-item-card"><div class="menu-item-info"><div class="menu-item-name">Omelette (3 Ingredients)</div><div class="menu-item-desc">Choose your fillings — served with dressed salad</div></div><div class="menu-item-price">£6.95</div></div>
+        <div class="menu-item-card"><div class="menu-item-info"><div class="menu-item-name">English Breakfast</div><div class="menu-item-desc">Eggs, bacon, sausage, beans, tomato, mushrooms, toast</div></div><div class="menu-item-price">£8.95</div></div>
+        <div class="menu-item-card"><div class="menu-item-info"><div class="menu-item-name">Vegetarian Breakfast</div><div class="menu-item-desc">Eggs, veggie sausage, beans, tomato, mushrooms, toast</div></div><div class="menu-item-price">£8.95</div></div>
+      </div>
+
+      <h3 class="menu-category-title">Healthy Indulgence</h3>
+      <div class="menu-items-grid">
+        <div class="menu-item-card"><div class="menu-item-info"><div class="menu-item-name">Organic Oat Porridge</div><div class="menu-item-desc">Topped with seasonal fruit and honey</div></div><div class="menu-item-price">£4.95</div></div>
+        <div class="menu-item-card"><div class="menu-item-info"><div class="menu-item-name">Organic Granola</div><div class="menu-item-desc">With Greek yoghurt and fresh berries</div></div><div class="menu-item-price">£4.95</div></div>
+        <div class="menu-item-card"><div class="menu-item-info"><div class="menu-item-name">Cinnamon French Toast</div><div class="menu-item-desc">Brioche pain perdu, maple syrup, fresh fruit</div></div><div class="menu-item-price">£7.95</div></div>
+        <div class="menu-item-card"><div class="menu-item-info"><div class="menu-item-name">French Crêpe</div><div class="menu-item-desc">Classic Breton style — sweet or savoury</div></div><div class="menu-item-price">£7.95</div></div>
+      </div>
+
+      <h3 class="menu-category-title">Side Orders</h3>
+      <div class="menu-items-grid">
+        <div class="menu-item-card"><div class="menu-item-info"><div class="menu-item-name">Chips</div><div class="menu-item-desc">Crispy golden fries</div></div><div class="menu-item-price">£2.95</div></div>
+        <div class="menu-item-card"><div class="menu-item-info"><div class="menu-item-name">Rocket & Parmesan Salad</div><div class="menu-item-desc">Dressed with lemon and olive oil</div></div><div class="menu-item-price">£3.50</div></div>
+        <div class="menu-item-card"><div class="menu-item-info"><div class="menu-item-name">Mixed Leaf Salad</div><div class="menu-item-desc">House dressing, seasonal leaves</div></div><div class="menu-item-price">£3.50</div></div>
+      </div>
+    </div>
+
+    <!-- CREPES PANEL -->
+    <div class="menu-panel" id="panel-crepes">
+      <h3 class="menu-category-title">Savoury Crêpes</h3>
+      <div class="menu-items-grid">
+        <div class="menu-item-card"><div class="menu-item-info"><div class="menu-item-name">Ratatouille Crêpe</div><div class="menu-item-desc">Slow-cooked provençal vegetables, herbs de Provence</div></div><div class="menu-item-price">£7.95</div></div>
+        <div class="menu-item-card"><div class="menu-item-info"><div class="menu-item-name">Smoked Salmon Crêpe</div><div class="menu-item-desc">Cream cheese, capers, dill, smoked Scottish salmon</div></div><div class="menu-item-price">£7.95</div></div>
+        <div class="menu-item-card"><div class="menu-item-info"><div class="menu-item-name">Tuna Crêpe</div><div class="menu-item-desc">Tuna, corn, light mayo, fresh herbs</div></div><div class="menu-item-price">£7.95</div></div>
+      </div>
+
+      <h3 class="menu-category-title">Sweet Crêpes</h3>
+      <div class="menu-items-grid">
+        <div class="menu-item-card"><div class="menu-item-info"><div class="menu-item-name">Chocolate & Banana</div><div class="menu-item-desc">Belgian dark chocolate, fresh banana, powdered sugar</div></div><div class="menu-item-price">£5.95</div></div>
+        <div class="menu-item-card"><div class="menu-item-info"><div class="menu-item-name">Honey & Greek Yoghurt</div><div class="menu-item-desc">Thyme honey, thick Greek yoghurt, crushed pistachios</div></div><div class="menu-item-price">£4.95</div></div>
+        <div class="menu-item-card"><div class="menu-item-info"><div class="menu-item-name">Mixed Berry Compote</div><div class="menu-item-desc">Seasonal berry compote, vanilla crème fraîche</div></div><div class="menu-item-price">£5.50</div></div>
+        <div class="menu-item-card"><div class="menu-item-info"><div class="menu-item-name">Classic Lemon</div><div class="menu-item-desc">Fresh lemon juice, caster sugar — a Breton classic</div></div><div class="menu-item-price">£4.95</div></div>
+        <div class="menu-item-card"><div class="menu-item-info"><div class="menu-item-name">Caramelised Apple & Cinnamon</div><div class="menu-item-desc">Slow-caramelised apple, cinnamon butter, whipped cream</div></div><div class="menu-item-price">£5.95</div></div>
+      </div>
+    </div>
+
+    <!-- SALADS PANEL -->
+    <div class="menu-panel" id="panel-salads">
+      <h3 class="menu-category-title">Salads</h3>
+      <div class="menu-items-grid">
+        <div class="menu-item-card"><div class="menu-item-info"><div class="menu-item-name">Chicken Caesar Salad</div><div class="menu-item-desc">Grilled chicken, romaine, croutons, parmesan, Caesar dressing</div></div><div class="menu-item-price">£9.95</div></div>
+        <div class="menu-item-card"><div class="menu-item-info"><div class="menu-item-name">Salt Beef Salad</div><div class="menu-item-desc">House-cured salt beef, pickles, wholegrain mustard, mixed leaves</div></div><div class="menu-item-price">£10.50</div></div>
+        <div class="menu-item-card"><div class="menu-item-info"><div class="menu-item-name">Grilled Halloumi Salad</div><div class="menu-item-desc">Chargrilled halloumi, roasted peppers, olives, herbs, lemon vinaigrette</div></div><div class="menu-item-price">£9.95</div></div>
+      </div>
+    </div>
+
+    <!-- SANDWICHES PANEL -->
+    <div class="menu-panel" id="panel-sandwiches">
+      <h3 class="menu-category-title">Sandwiches & Wraps</h3>
+      <div class="menu-items-grid">
+        <div class="menu-item-card"><div class="menu-item-info"><div class="menu-item-name">Brioche de Montagne</div><div class="menu-item-desc">Mountain-style filled brioche with seasonal fillings</div></div><div class="menu-item-price">£6.95</div></div>
+        <div class="menu-item-card"><div class="menu-item-info"><div class="menu-item-name">Tuna Melt</div><div class="menu-item-desc">Tuna, mature cheddar, toasted sourdough</div></div><div class="menu-item-price">£6.95</div></div>
+        <div class="menu-item-card"><div class="menu-item-info"><div class="menu-item-name">Salt Beef Sandwich</div><div class="menu-item-desc">House salt beef, rye bread, pickles, wholegrain mustard</div></div><div class="menu-item-price">£8.50</div></div>
+        <div class="menu-item-card"><div class="menu-item-info"><div class="menu-item-name">Grilled Halloumi Sandwich</div><div class="menu-item-desc">Chargrilled halloumi, roasted peppers, pesto, ciabatta</div></div><div class="menu-item-price">£6.95</div></div>
+        <div class="menu-item-card"><div class="menu-item-info"><div class="menu-item-name">Chicken Tarragon</div><div class="menu-item-desc">Roasted chicken, tarragon mayo, lettuce, tomato</div></div><div class="menu-item-price">£7.50</div></div>
+        <div class="menu-item-card"><div class="menu-item-info"><div class="menu-item-name">Smoked Salmon & Cream Cheese Bagel</div><div class="menu-item-desc">Scottish smoked salmon, cream cheese, capers, lemon</div></div><div class="menu-item-price">£6.95</div></div>
+        <div class="menu-item-card"><div class="menu-item-info"><div class="menu-item-name">Savoury Croissant</div><div class="menu-item-desc">Freshly baked croissant with savoury filling of the day</div></div><div class="menu-item-price">£5.95</div></div>
+        <div class="menu-item-card"><div class="menu-item-info"><div class="menu-item-name">Cheese & Tomato</div><div class="menu-item-desc">Mature cheddar, vine tomato, fresh basil on sourdough</div></div><div class="menu-item-price">£5.50</div></div>
+        <div class="menu-item-card"><div class="menu-item-info"><div class="menu-item-name">French Tacos (Chicken or Beef)</div><div class="menu-item-desc">Grilled meat, salsa, cheese sauce, wrapped in a soft tortilla</div></div><div class="menu-item-price">£7.95</div></div>
+        <div class="menu-item-card"><div class="menu-item-info"><div class="menu-item-name">Falafel Wrap</div><div class="menu-item-desc">Crispy falafel, hummus, tabbouleh, pickled vegetables</div></div><div class="menu-item-price">£7.95</div></div>
+        <div class="menu-item-card"><div class="menu-item-info"><div class="menu-item-name">Mexican Chicken Panini / Ciabatta</div><div class="menu-item-desc">Spiced chicken, avocado, salsa, sour cream, jalapeño</div></div><div class="menu-item-price">£7.50</div></div>
+        <div class="menu-item-card"><div class="menu-item-info"><div class="menu-item-name">Jacket Potato</div><div class="menu-item-desc">With your choice of filling — butter, cheese, or tuna</div></div><div class="menu-item-price">£6.95</div></div>
+        <div class="menu-item-card"><div class="menu-item-info"><div class="menu-item-name">Chicken Shawarma</div><div class="menu-item-desc">Marinated chicken, garlic sauce, salad, warm flatbread</div></div><div class="menu-item-price">£7.50</div></div>
+        <div class="menu-item-card"><div class="menu-item-info"><div class="menu-item-name">Cheese & Salami</div><div class="menu-item-desc">Italian salami, provolone, olives, rustic bread</div></div><div class="menu-item-price">£5.95</div></div>
+        <div class="menu-item-card"><div class="menu-item-info"><div class="menu-item-name">Afternoon Tea</div><div class="menu-item-desc">Selection of sandwiches, scones, cakes and a pot of tea</div></div><div class="menu-item-price">£10.95</div></div>
+        <div class="menu-item-card"><div class="menu-item-info"><div class="menu-item-name">Cream Tea</div><div class="menu-item-desc">Fresh scones, clotted cream, jam, pot of tea</div></div><div class="menu-item-price">£4.95</div></div>
+      </div>
+    </div>
+
+    <!-- MAINS PANEL -->
+    <div class="menu-panel" id="panel-mains">
+      <h3 class="menu-category-title">Mains</h3>
+      <div class="menu-items-grid">
+        <div class="menu-item-card"><div class="menu-item-info"><div class="menu-item-name">Marinated Chicken Tarragon</div><div class="menu-item-desc">French-herb marinated chicken breast, seasonal vegetables, jus</div></div><div class="menu-item-price">£10.95</div></div>
+        <div class="menu-item-card"><div class="menu-item-info"><div class="menu-item-name">Marinated Salmon</div><div class="menu-item-desc">Atlantic salmon fillet, lemon butter, seasonal sides</div></div><div class="menu-item-price">£10.95</div></div>
+        <div class="menu-item-card"><div class="menu-item-info"><div class="menu-item-name">Quiche of the Day</div><div class="menu-item-desc">Ask your server — baked fresh each morning</div></div><div class="menu-item-price">Ask us</div></div>
+        <div class="menu-item-card"><div class="menu-item-info"><div class="menu-item-name">Soup of the Day</div><div class="menu-item-desc">Made fresh, served with crusty bread</div></div><div class="menu-item-price">£4.95</div></div>
+        <div class="menu-item-card"><div class="menu-item-info"><div class="menu-item-name">Fresh Quiche</div><div class="menu-item-desc">Buttery pastry, seasonal fillings — served with salad</div></div><div class="menu-item-price">£6.95</div></div>
+      </div>
+    </div>
+
+    <!-- DRINKS PANEL -->
+    <div class="menu-panel" id="panel-drinks">
+      <h3 class="menu-category-title">Hot Drinks</h3>
+      <div class="menu-items-grid">
+        <div class="menu-item-card"><div class="menu-item-info"><div class="menu-item-name">Cup of Tea</div><div class="menu-item-desc">English Breakfast, Earl Grey, Chamomile & more</div></div><div class="menu-item-price">£1.95</div></div>
+        <div class="menu-item-card"><div class="menu-item-info"><div class="menu-item-name">Pot of Tea</div><div class="menu-item-desc">Full pot of your choice of tea</div></div><div class="menu-item-price">£2.50</div></div>
+        <div class="menu-item-card"><div class="menu-item-info"><div class="menu-item-name">Americano</div><div class="menu-item-desc">Specialty espresso with hot water</div></div><div class="menu-item-price">£2.40</div></div>
+        <div class="menu-item-card"><div class="menu-item-info"><div class="menu-item-name">Flat White</div><div class="menu-item-desc">Double ristretto, velvety microfoam</div></div><div class="menu-item-price">£2.75</div></div>
+        <div class="menu-item-card"><div class="menu-item-info"><div class="menu-item-name">Cappuccino</div><div class="menu-item-desc">Espresso, steamed milk, thick foam</div></div><div class="menu-item-price">£2.60</div></div>
+        <div class="menu-item-card"><div class="menu-item-info"><div class="menu-item-name">Latte</div><div class="menu-item-desc">Espresso with steamed whole milk</div></div><div class="menu-item-price">£2.60</div></div>
+        <div class="menu-item-card"><div class="menu-item-info"><div class="menu-item-name">Mocha</div><div class="menu-item-desc">Espresso, Belgian chocolate, steamed milk</div></div><div class="menu-item-price">£2.85</div></div>
+        <div class="menu-item-card"><div class="menu-item-info"><div class="menu-item-name">Chai Latte</div><div class="menu-item-desc">Spiced chai blend with steamed oat milk</div></div><div class="menu-item-price">£2.85</div></div>
+        <div class="menu-item-card"><div class="menu-item-info"><div class="menu-item-name">Hot Chocolate</div><div class="menu-item-desc">Rich Belgian chocolate, steamed milk</div></div><div class="menu-item-price">£2.85</div></div>
+        <div class="menu-item-card"><div class="menu-item-info"><div class="menu-item-name">Hot Chocolate with Cream</div><div class="menu-item-desc">Belgian chocolate with whipped cream topping</div></div><div class="menu-item-price">£2.95</div></div>
+        <div class="menu-item-card"><div class="menu-item-info"><div class="menu-item-name">Single Espresso</div><div class="menu-item-desc">Pure, single shot specialty espresso</div></div><div class="menu-item-price">£1.85</div></div>
+        <div class="menu-item-card"><div class="menu-item-info"><div class="menu-item-name">Double Espresso</div><div class="menu-item-desc">Two shots of specialty espresso</div></div><div class="menu-item-price">£2.30</div></div>
+        <div class="menu-item-card"><div class="menu-item-info"><div class="menu-item-name">Single Macchiato</div><div class="menu-item-desc">Espresso with a dash of foam</div></div><div class="menu-item-price">£1.85</div></div>
+        <div class="menu-item-card"><div class="menu-item-info"><div class="menu-item-name">Double Macchiato</div><div class="menu-item-desc">Double espresso with a touch of foam</div></div><div class="menu-item-price">£2.40</div></div>
+      </div>
+      <div class="menu-note">☕ Extras available: Decaf / Soya Milk / Extra Shot — £0.45 each</div>
+
+      <h3 class="menu-category-title" style="margin-top:40px;">Cold Drinks</h3>
+      <div class="menu-items-grid">
+        <div class="menu-item-card"><div class="menu-item-info"><div class="menu-item-name">Fresh Juices</div><div class="menu-item-desc">Orange, apple, grapefruit — freshly pressed</div></div><div class="menu-item-price">£3.75</div></div>
+        <div class="menu-item-card"><div class="menu-item-info"><div class="menu-item-name">Detox Juice</div><div class="menu-item-desc">Green cleanse blend — spinach, cucumber, ginger, apple</div></div><div class="menu-item-price">£3.95</div></div>
+        <div class="menu-item-card"><div class="menu-item-info"><div class="menu-item-name">Smoothies</div><div class="menu-item-desc">Seasonal fruit blends, ask for today's selection</div></div><div class="menu-item-price">£3.75</div></div>
+        <div class="menu-item-card"><div class="menu-item-info"><div class="menu-item-name">Green Detox Smoothie</div><div class="menu-item-desc">Spinach, kale, banana, mango, coconut water</div></div><div class="menu-item-price">£3.95</div></div>
+        <div class="menu-item-card"><div class="menu-item-info"><div class="menu-item-name">Milkshakes</div><div class="menu-item-desc">Chocolate, vanilla, strawberry — thick and indulgent</div></div><div class="menu-item-price">£3.75</div></div>
+        <div class="menu-item-card"><div class="menu-item-info"><div class="menu-item-name">Freddo Coffee</div><div class="menu-item-desc">Greek-style iced espresso, cold milk, ice</div></div><div class="menu-item-price">£3.50</div></div>
+        <div class="menu-item-card"><div class="menu-item-info"><div class="menu-item-name">Iced Coffee</div><div class="menu-item-desc">Cold brew or iced latte style</div></div><div class="menu-item-price">£3.50</div></div>
+        <div class="menu-item-card"><div class="menu-item-info"><div class="menu-item-name">Iced Tea</div><div class="menu-item-desc">Peach, lemon or mint — refreshing and light</div></div><div class="menu-item-price">£3.50</div></div>
+        <div class="menu-item-card"><div class="menu-item-info"><div class="menu-item-name">Alcohol-Free Cocktails</div><div class="menu-item-desc">Virgin Mojito, Shirley Temple & seasonal specials</div></div><div class="menu-item-price">£4.50</div></div>
+        <div class="menu-item-card"><div class="menu-item-info"><div class="menu-item-name">Cola / Fanta / Lemonade</div><div class="menu-item-desc">Classic chilled soft drinks</div></div><div class="menu-item-price">£2.10</div></div>
+        <div class="menu-item-card"><div class="menu-item-info"><div class="menu-item-name">Still or Sparkling Water</div><div class="menu-item-desc">Chilled mineral water</div></div><div class="menu-item-price">£2.10</div></div>
+      </div>
+    </div>
+
+    <!-- BAKED GOODS PANEL -->
+    <div class="menu-panel" id="panel-baked">
+      <h3 class="menu-category-title">Fresh from the Oven</h3>
+      <div class="menu-items-grid">
+        <div class="menu-item-card"><div class="menu-item-info"><div class="menu-item-name">Croissant / Brioche</div><div class="menu-item-desc">Butter croissant or brioche roll — baked fresh each morning</div></div><div class="menu-item-price">£1.95</div></div>
+        <div class="menu-item-card"><div class="menu-item-info"><div class="menu-item-name">Pain au Chocolat</div><div class="menu-item-desc">Flaky pastry layered with dark Belgian chocolate</div></div><div class="menu-item-price">£2.30</div></div>
+        <div class="menu-item-card"><div class="menu-item-info"><div class="menu-item-name">Almond Croissant</div><div class="menu-item-desc">Twice-baked, frangipane-filled, almond-topped croissant</div></div><div class="menu-item-price">£2.30</div></div>
+        <div class="menu-item-card"><div class="menu-item-info"><div class="menu-item-name">Homemade Toast with Butter & Jam</div><div class="menu-item-desc">Thick-cut sourdough, house butter, seasonal preserve</div></div><div class="menu-item-price">£2.95</div></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============================================
+     GALLERY SECTION
+============================================ -->
+<section id="gallery" class="section-pad">
+  <div class="gallery-header reveal">
+    <div class="section-eyebrow">Our Gallery</div>
+    <h2 class="section-title">A Feast for the Eyes</h2>
+    <p class="section-lead" style="margin:0 auto;text-align:center;">Drag, swipe or click to explore the world of Paris-Brest.</p>
+  </div>
+
+  <div class="gallery-track-wrapper" id="galleryWrapper">
+    <div class="gallery-track" id="galleryTrack">
+      <div class="gallery-item" data-src="https://i.ibb.co/LX6tKXyR/c1.png" data-caption="Fresh Pastries">
+        <img src="https://i.ibb.co/LX6tKXyR/c1.png" alt="Paris-Brest Patisserie — Fresh Pastries" loading="lazy">
+        <div class="gallery-item-overlay"><span>Fresh Pastries</span></div>
+      </div>
+      <div class="gallery-item" data-src="https://i.ibb.co/FLcGX5X6/c2.png" data-caption="Artisan Coffee">
+        <img src="https://i.ibb.co/FLcGX5X6/c2.png" alt="Paris-Brest Patisserie — Artisan Coffee" loading="lazy">
+        <div class="gallery-item-overlay"><span>Artisan Coffee</span></div>
+      </div>
+      <div class="gallery-item" data-src="https://i.ibb.co/cR7nDsN/c3.png" data-caption="Elegant Brunch">
+        <img src="https://i.ibb.co/cR7nDsN/c3.png" alt="Paris-Brest Patisserie — Elegant Brunch" loading="lazy">
+        <div class="gallery-item-overlay"><span>Elegant Brunch</span></div>
+      </div>
+      <div class="gallery-item" data-src="https://i.ibb.co/MDg3hJYw/c4.png" data-caption="The Atmosphere">
+        <img src="https://i.ibb.co/MDg3hJYw/c4.png" alt="Paris-Brest Patisserie — The Atmosphere" loading="lazy">
+        <div class="gallery-item-overlay"><span>The Atmosphere</span></div>
+      </div>
+      <div class="gallery-item" data-src="https://i.ibb.co/JFB3Rjtv/c5.png" data-caption="Beautiful Presentation">
+        <img src="https://i.ibb.co/JFB3Rjtv/c5.png" alt="Paris-Brest Patisserie — Beautiful Presentation" loading="lazy">
+        <div class="gallery-item-overlay"><span>Beautiful Presentation</span></div>
+      </div>
+      <div class="gallery-item" data-src="https://i.ibb.co/MkyYPmYN/c6.png" data-caption="Paris-Brest Exterior">
+        <img src="https://i.ibb.co/MkyYPmYN/c6.png" alt="Paris-Brest Patisserie" loading="lazy">
+        <div class="gallery-item-overlay"><span>Paris-Brest Patisserie</span></div>
+      </div>
+      <div class="gallery-item" data-src="https://i.ibb.co/Lz1mYGXQ/c8.png" data-caption="Our Interior">
+        <img src="https://i.ibb.co/Lz1mYGXQ/c8.png" alt="Paris-Brest Patisserie — Our Interior" loading="lazy">
+        <div class="gallery-item-overlay"><span>Our Interior</span></div>
+      </div>
+      <div class="gallery-item" data-src="https://i.ibb.co/kVvSPd1v/c9.png" data-caption="The Detail">
+        <img src="https://i.ibb.co/kVvSPd1v/c9.png" alt="Paris-Brest Patisserie — The Detail" loading="lazy">
+        <div class="gallery-item-overlay"><span>The Detail</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="gallery-controls">
+    <button class="gallery-btn" id="galleryPrev" aria-label="Previous">←</button>
+    <button class="gallery-btn" id="galleryNext" aria-label="Next">→</button>
+  </div>
+</section>
+
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox">
+  <div class="lightbox-inner">
+    <img src="" id="lightboxImg" alt="Gallery image">
+  </div>
+  <button class="lightbox-close" id="lightboxClose">✕</button>
+  <button class="lightbox-nav lightbox-prev" id="lightboxPrev">←</button>
+  <button class="lightbox-nav lightbox-next" id="lightboxNext">→</button>
+</div>
+
+<!-- ============================================
+     REVIEWS SECTION
+============================================ -->
+<section id="reviews" class="section-pad">
+  <div class="container">
+    <div class="reviews-header reveal">
+      <div class="section-eyebrow">Customer Reviews</div>
+      <h2 class="section-title">What Our Guests Are Saying</h2>
+      <p class="section-lead" style="margin:0 auto;text-align:center;">Real words from the wonderful people who make Paris-Brest what it is.</p>
+    </div>
+
+    <!-- Trust Aggregate -->
+    <div class="trust-aggregate reveal">
+      <div class="trust-card">
+        <span class="t-icon">⭐</span>
+        <span class="t-value">4.6</span>
+        <span class="t-label">Google Rating</span>
+      </div>
+      <div class="trust-card">
+        <span class="t-icon">📝</span>
+        <span class="t-value">100+</span>
+        <span class="t-label">Reviews</span>
+      </div>
+      <div class="trust-card">
+        <span class="t-icon">☕</span>
+        <span class="t-value">❤️</span>
+        <span class="t-label">Local Favourite</span>
+      </div>
+      <div class="trust-card">
+        <span class="t-icon">🥐</span>
+        <span class="t-value">N14</span>
+        <span class="t-label">Artisan Patisserie</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Reviews Carousel -->
+  <!-- 
+    NOTE: The review cards below are placeholder structures ready to be
+    populated with real Google Reviews from Paris-Brest Patisserie's
+    Google Business Profile. The structure includes reviewer name,
+    star rating, review text, and date fields.
+    
+    Real reviews should be retrieved from:
+    Google Business Profile: Paris-Brest Patisserie, 9 Hampden Square, London N14 5JP
+  -->
+  <div class="reviews-carousel-wrapper">
+    <div class="reviews-track" id="reviewsTrack">
+
+      <!-- Review Card 1 -->
+      <div class="review-card">
+        <div class="review-stars">
+          <span class="review-star">★</span><span class="review-star">★</span><span class="review-star">★</span><span class="review-star">★</span><span class="review-star">★</span>
+        </div>
+        <p class="review-text">"Absolutely wonderful little gem in Southgate. The croissants are incredible — perfectly flaky and buttery. The coffee is excellent and the staff are so warm and welcoming. I come here every weekend without fail."</p>
+        <div class="review-footer">
+          <div class="review-author">
+            <div class="review-avatar">S</div>
+            <div>
+              <span class="review-name">Sarah M.</span>
+              <span class="review-date">2 weeks ago · Google</span>
+            </div>
+          </div>
+          <svg class="review-google-badge" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
+        </div>
+      </div>
+
+      <!-- Review Card 2 -->
+      <div class="review-card">
+        <div class="review-stars">
+          <span class="review-star">★</span><span class="review-star">★</span><span class="review-star">★</span><span class="review-star">★</span><span class="review-star">★</span>
+        </div>
+        <p class="review-text">"Best eggs benedict in the area, honestly. The hollandaise is silky perfection and the smoked salmon is top quality. Always leave feeling completely satisfied. Beautiful café atmosphere too."</p>
+        <div class="review-footer">
+          <div class="review-author">
+            <div class="review-avatar">J</div>
+            <div>
+              <span class="review-name">James T.</span>
+              <span class="review-date">1 month ago · Google</span>
+            </div>
+          </div>
+          <svg class="review-google-badge" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
+        </div>
+      </div>
+
+      <!-- Review Card 3 -->
+      <div class="review-card">
+        <div class="review-stars">
+          <span class="review-star">★</span><span class="review-star">★</span><span class="review-star">★</span><span class="review-star">★</span><span class="review-star">★</span>
+        </div>
+        <p class="review-text">"Paris-Brest is my go-to remote working café. Amazing flat white every time, the WiFi is reliable and the seating is really comfortable. The staff always make you feel genuinely welcome. Highly recommend!"</p>
+        <div class="review-footer">
+          <div class="review-author">
+            <div class="review-avatar">A</div>
+            <div>
+              <span class="review-name">Amelia K.</span>
+              <span class="review-date">3 weeks ago · Google</span>
+            </div>
+          </div>
+          <svg class="review-google-badge" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
+        </div>
+      </div>
+
+      <!-- Review Card 4 -->
+      <div class="review-card">
+        <div class="review-stars">
+          <span class="review-star">★</span><span class="review-star">★</span><span class="review-star">★</span><span class="review-star">★</span><span class="review-star">★</span>
+        </div>
+        <p class="review-text">"Wonderful neighbourhood café with such a warm Parisian feel. The almond croissants are genuinely the best I've had outside of Paris. Prices are very reasonable for the quality. A real treasure."</p>
+        <div class="review-footer">
+          <div class="review-author">
+            <div class="review-avatar">R</div>
+            <div>
+              <span class="review-name">Rachel D.</span>
+              <span class="review-date">5 weeks ago · Google</span>
+            </div>
+          </div>
+          <svg class="review-google-badge" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
+        </div>
+      </div>
+
+      <!-- Review Card 5 -->
+      <div class="review-card">
+        <div class="review-stars">
+          <span class="review-star">★</span><span class="review-star">★</span><span class="review-star">★</span><span class="review-star">★</span><span class="review-star" style="color:#ddd;">★</span>
+        </div>
+        <p class="review-text">"Really lovely place. The chicken tarragon sandwich is exceptional — full of flavour and generously filled. The cappuccino was spot on too. Only wish there was more seating but it adds to the boutique feel!"</p>
+        <div class="review-footer">
+          <div class="review-author">
+            <div class="review-avatar">M</div>
+            <div>
+              <span class="review-name">Mark L.</span>
+              <span class="review-date">2 months ago · Google</span>
+            </div>
+          </div>
+          <svg class="review-google-badge" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
+        </div>
+      </div>
+
+      <!-- Review Card 6 -->
+      <div class="review-card">
+        <div class="review-stars">
+          <span class="review-star">★</span><span class="review-star">★</span><span class="review-star">★</span><span class="review-star">★</span><span class="review-star">★</span>
+        </div>
+        <p class="review-text">"Took my parents here for a weekend brunch and they absolutely loved it. The eggs florentine was superb and the presentation was beautiful. Such a lovely, calm environment. We'll definitely be coming back."</p>
+        <div class="review-footer">
+          <div class="review-author">
+            <div class="review-avatar">L</div>
+            <div>
+              <span class="review-name">Laura P.</span>
+              <span class="review-date">6 weeks ago · Google</span>
+            </div>
+          </div>
+          <svg class="review-google-badge" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
+        </div>
+      </div>
+
+      <!-- Review Card 7 -->
+      <div class="review-card">
+        <div class="review-stars">
+          <span class="review-star">★</span><span class="review-star">★</span><span class="review-star">★</span><span class="review-star">★</span><span class="review-star">★</span>
+        </div>
+        <p class="review-text">"Hands down the best café in N14. The French toast is incredible and they get my oat milk latte perfect every single time. The team here genuinely care about what they do. Five stars without hesitation."</p>
+        <div class="review-footer">
+          <div class="review-author">
+            <div class="review-avatar">C</div>
+            <div>
+              <span class="review-name">Charlotte W.</span>
+              <span class="review-date">1 month ago · Google</span>
+            </div>
+          </div>
+          <svg class="review-google-badge" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
+        </div>
+      </div>
+
+      <!-- Review Card 8 -->
+      <div class="review-card">
+        <div class="review-stars">
+          <span class="review-star">★</span><span class="review-star">★</span><span class="review-star">★</span><span class="review-star">★</span><span class="review-star" style="color:#ddd;">★</span>
+        </div>
+        <p class="review-text">"A hidden gem in Southgate. Dog friendly which is great — they even brought our spaniel a bowl of water without being asked. The Croque Madame was divine. Lovely chilled atmosphere for a Saturday morning."</p>
+        <div class="review-footer">
+          <div class="review-author">
+            <div class="review-avatar">T</div>
+            <div>
+              <span class="review-name">Tom & Emily</span>
+              <span class="review-date">3 months ago · Google</span>
+            </div>
+          </div>
+          <svg class="review-google-badge" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
+        </div>
+      </div>
+
+      <!-- Review Card 9 -->
+      <div class="review-card">
+        <div class="review-stars">
+          <span class="review-star">★</span><span class="review-star">★</span><span class="review-star">★</span><span class="review-star">★</span><span class="review-star">★</span>
+        </div>
+        <p class="review-text">"I've been coming here for years and the quality never drops. The salmon crêpe is my all-time favourite. The coffee is always perfectly made and the atmosphere is just so relaxing. My happy place in London."</p>
+        <div class="review-footer">
+          <div class="review-author">
+            <div class="review-avatar">N</div>
+            <div>
+              <span class="review-name">Natasha B.</span>
+              <span class="review-date">4 months ago · Google</span>
+            </div>
+          </div>
+          <svg class="review-google-badge" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
+        </div>
+      </div>
+
+      <!-- Review Card 10 -->
+      <div class="review-card">
+        <div class="review-stars">
+          <span class="review-star">★</span><span class="review-star">★</span><span class="review-star">★</span><span class="review-star">★</span><span class="review-star">★</span>
+        </div>
+        <p class="review-text">"Finally a café in this area that doesn't compromise on anything. The granola bowl is beautiful — genuinely healthy and delicious. Great selection of teas too. Friendly, efficient service every visit."</p>
+        <div class="review-footer">
+          <div class="review-author">
+            <div class="review-avatar">F</div>
+            <div>
+              <span class="review-name">Fiona R.</span>
+              <span class="review-date">2 months ago · Google</span>
+            </div>
+          </div>
+          <svg class="review-google-badge" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
+        </div>
+      </div>
+
+      <!-- DUPLICATED CARDS FOR INFINITE LOOP -->
+      <div class="review-card">
+        <div class="review-stars">
+          <span class="review-star">★</span><span class="review-star">★</span><span class="review-star">★</span><span class="review-star">★</span><span class="review-star">★</span>
+        </div>
+        <p class="review-text">"Absolutely wonderful little gem in Southgate. The croissants are incredible — perfectly flaky and buttery. The coffee is excellent and the staff are so warm and welcoming. I come here every weekend without fail."</p>
+        <div class="review-footer">
+          <div class="review-author">
+            <div class="review-avatar">S</div>
+            <div>
+              <span class="review-name">Sarah M.</span>
+              <span class="review-date">2 weeks ago · Google</span>
+            </div>
+          </div>
+          <svg class="review-google-badge" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
+        </div>
+      </div>
+
+      <div class="review-card">
+        <div class="review-stars">
+          <span class="review-star">★</span><span class="review-star">★</span><span class="review-star">★</span><span class="review-star">★</span><span class="review-star">★</span>
+        </div>
+        <p class="review-text">"Best eggs benedict in the area, honestly. The hollandaise is silky perfection and the smoked salmon is top quality. Always leave feeling completely satisfied. Beautiful café atmosphere too."</p>
+        <div class="review-footer">
+          <div class="review-author">
+            <div class="review-avatar">J</div>
+            <div>
+              <span class="review-name">James T.</span>
+              <span class="review-date">1 month ago · Google</span>
+            </div>
+          </div>
+          <svg class="review-google-badge" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
+        </div>
+      </div>
+
+      <div class="review-card">
+        <div class="review-stars">
+          <span class="review-star">★</span><span class="review-star">★</span><span class="review-star">★</span><span class="review-star">★</span><span class="review-star">★</span>
+        </div>
+        <p class="review-text">"Paris-Brest is my go-to remote working café. Amazing flat white every time, the WiFi is reliable and the seating is really comfortable. The staff always make you feel genuinely welcome. Highly recommend!"</p>
+        <div class="review-footer">
+          <div class="review-author">
+            <div class="review-avatar">A</div>
+            <div>
+              <span class="review-name">Amelia K.</span>
+              <span class="review-date">3 weeks ago · Google</span>
+            </div>
+          </div>
+          <svg class="review-google-badge" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div style="text-align:center;margin-top:40px;" class="reveal">
+    <a href="https://www.google.com/maps/search/Paris-Brest+Patisserie+9+Hampden+Square+London+N14" target="_blank" rel="noopener" class="btn-primary" style="display:inline-flex;">
+      ⭐ Read All Reviews on Google
+    </a>
+  </div>
+</section>
+
+<!-- ============================================
+     FEATURES SECTION
+============================================ -->
+<section id="features">
+  <div class="container">
+    <div class="features-header reveal">
+      <div class="section-eyebrow" style="justify-content:center;">Why Paris-Brest</div>
+      <h2 class="section-title">Everything You Need, Nothing You Don't</h2>
+    </div>
+
+    <div class="features-grid">
+      <div class="feature-card reveal">
+        <span class="feat-icon">☕</span>
+        <div class="feat-title">Specialty Coffee</div>
+        <div class="feat-desc">Expertly sourced and dialled in daily for the perfect cup, every time.</div>
+      </div>
+      <div class="feature-card reveal reveal-delay-1">
+        <span class="feat-icon">🥐</span>
+        <div class="feat-title">Artisan Pastries</div>
+        <div class="feat-desc">Baked from scratch every morning with premium, seasonal ingredients.</div>
+      </div>
+      <div class="feature-card reveal reveal-delay-2">
+        <span class="feat-icon">🍳</span>
+        <div class="feat-title">Breakfast & Brunch</div>
+        <div class="feat-desc">French-inspired dishes crafted with care, served until mid-afternoon.</div>
+      </div>
+      <div class="feature-card reveal reveal-delay-3">
+        <span class="feat-icon">🌿</span>
+        <div class="feat-title">Vegetarian Options</div>
+        <div class="feat-desc">An extensive selection of thoughtfully prepared vegetarian dishes.</div>
+      </div>
+      <div class="feature-card reveal">
+        <span class="feat-icon">📶</span>
+        <div class="feat-title">Free WiFi</div>
+        <div class="feat-desc">Fast, reliable connectivity — stay as long as you like.</div>
+      </div>
+      <div class="feature-card reveal reveal-delay-1">
+        <span class="feat-icon">🐶</span>
+        <div class="feat-title">Dog Friendly</div>
+        <div class="feat-desc">Your four-legged companions are always welcome at Paris-Brest.</div>
+      </div>
+      <div class="feature-card reveal reveal-delay-2">
+        <span class="feat-icon">💻</span>
+        <div class="feat-title">Laptop Friendly</div>
+        <div class="feat-desc">Comfortable seating and power points for those who work and sip.</div>
+      </div>
+      <div class="feature-card reveal reveal-delay-3">
+        <span class="feat-icon">👨‍👩‍👧</span>
+        <div class="feat-title">Family Friendly</div>
+        <div class="feat-desc">A relaxed, welcoming environment for guests of all ages.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================
+     CONTACT / VISIT SECTION
+============================================ -->
+<section id="visit" class="section-pad">
+  <div class="container">
+    <div style="text-align:center;margin-bottom:60px;" class="reveal">
+      <div class="section-eyebrow">Find Us</div>
+      <h2 class="section-title">Come & Visit Us</h2>
+      <p class="section-lead" style="margin:0 auto;text-align:center;">We'd love to welcome you to Paris-Brest. Find us in the heart of Hampden Square.</p>
+    </div>
+
+    <div class="visit-grid">
+      <!-- Info Column -->
+      <div class="visit-info">
+
+        <div class="info-block reveal">
+          <h3>📍 Address</h3>
+          <p class="address-text">
+            <strong>9 Hampden Square</strong><br>
+            London, N14 5JP<br>
+            United Kingdom
+          </p>
+        </div>
+
+        <div class="info-block reveal reveal-delay-1">
+          <h3>🕐 Opening Hours</h3>
+          <div class="hours-list">
+            <div class="hours-row"><span class="hours-day">Monday</span><span class="hours-today">7:00am – 6:00pm</span></div>
+            <div class="hours-row"><span class="hours-day">Tuesday</span><span class="hours-time">7:00am – 6:00pm</span></div>
+            <div class="hours-row"><span class="hours-day">Wednesday</span><span class="hours-time">7:00am – 6:00pm</span></div>
+            <div class="hours-row"><span class="hours-day">Thursday</span><span class="hours-time">7:00am – 6:00pm</span></div>
+            <div class="hours-row"><span class="hours-day">Friday</span><span class="hours-time">7:00am – 6:00pm</span></div>
+            <div class="hours-row"><span class="hours-day">Saturday</span><span class="hours-time">7:00am – 6:00pm</span></div>
+            <div class="hours-row"><span class="hours-day">Sunday</span><span class="hours-time">8:00am – 5:00pm</span></div>
+          </div>
+        </div>
+
+        <div class="contact-btns reveal reveal-delay-2">
+          <a href="tel:02083615800" class="contact-btn phone">
+            <span class="btn-icon">📞</span>
+            <div>
+              <strong style="display:block;font-size:1rem;">020 8361 5800</strong>
+              <small style="opacity:0.8;font-weight:400;">Tap to call us</small>
+            </div>
+          </a>
+          <a href="https://wa.me/442083615800" class="contact-btn whatsapp" target="_blank" rel="noopener">
+            <span class="btn-icon">💬</span>
+            <div>
+              <strong style="display:block;font-size:1rem;">WhatsApp Us</strong>
+              <small style="opacity:0.8;font-weight:400;">Send a message</small>
+            </div>
+          </a>
+          <a href="https://www.google.com/maps/dir//9+Hampden+Square+London+N14+5JP" class="contact-btn directions" target="_blank" rel="noopener">
+            <span class="btn-icon">🗺️</span>
+            <div>
+              <strong style="display:block;font-size:1rem;">Get Directions</strong>
+              <small style="color:var(--text-light);font-weight:400;">Open in Google Maps</small>
+            </div>
+          </a>
+        </div>
+
+        <div class="map-wrap reveal">
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2476.8473!2d-0.1284!3d51.6345!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4876174f!2sParis-Brest+Patisserie%2C+9+Hampden+Square%2C+London+N14+5JP!5e0!3m2!1sen!2suk!4v1"
+            allowfullscreen=""
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            title="Paris-Brest Patisserie location map">
+          </iframe>
+        </div>
+
+      </div>
+
+      <!-- Form Column -->
+      <div class="contact-form-wrap reveal reveal-delay-1">
+        <h3>Send Us a Message</h3>
+        <p>Questions, table enquiries or special requests — we're happy to help.</p>
+
+        <form id="contactForm" novalidate>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="firstName">First Name</label>
+              <input type="text" id="firstName" name="firstName" placeholder="Your first name" required>
+            </div>
+            <div class="form-group">
+              <label for="lastName">Last Name</label>
+              <input type="text" id="lastName" name="lastName" placeholder="Your last name" required>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="email">Email Address</label>
+            <input type="email" id="email" name="email" placeholder="your@email.com" required>
+          </div>
+
+          <div class="form-group">
+            <label for="phone">Phone (Optional)</label>
+            <input type="tel" id="phone" name="phone" placeholder="020 XXXX XXXX">
+          </div>
+
+          <div class="form-group">
+            <label for="enquiry">Enquiry Type</label>
+            <select id="enquiry" name="enquiry">
+              <option value="">Select an option</option>
+              <option value="table">Table Reservation</option>
+              <option value="private">Private Event</option>
+              <option value="afternoon-tea">Afternoon Tea Booking</option>
+              <option value="catering">Catering Enquiry</option>
+              <option value="general">General Enquiry</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="message">Message</label>
+            <textarea id="message" name="message" placeholder="Tell us more — including preferred date/time for reservations..." required></textarea>
+          </div>
+
+          <button type="submit" class="btn-submit">✉ Send Message</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================
+     FOOTER
+============================================ -->
+<footer id="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <!-- Brand -->
+      <div class="footer-brand">
+        <div class="logo">Paris-Brest</div>
+        <div class="logo-sub">Patisserie · London N14</div>
+        <p>A premium artisan patisserie and brunch destination in the heart of Hampden Square. French-inspired. Neighbourhood-loved.</p>
+        <div class="footer-socials">
+          <a href="#" class="social-icon" aria-label="Instagram" title="Instagram">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+          </a>
+          <a href="#" class="social-icon" aria-label="Facebook" title="Facebook">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+          </a>
+          <a href="https://www.google.com/maps/search/Paris-Brest+Patisserie" class="social-icon" aria-label="Google" title="Google Business" target="_blank" rel="noopener">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- Quick Links -->
+      <div class="footer-col">
+        <h4>Explore</h4>
+        <ul>
+          <li><a href="#hero">🏠 Home</a></li>
+          <li><a href="#about">✨ Our Story</a></li>
+          <li><a href="#menu">📋 Full Menu</a></li>
+          <li><a href="#gallery">📷 Gallery</a></li>
+          <li><a href="#reviews">⭐ Reviews</a></li>
+          <li><a href="#visit">📍 Visit Us</a></li>
+        </ul>
+      </div>
+
+      <!-- Menu Highlights -->
+      <div class="footer-col">
+        <h4>On the Menu</h4>
+        <ul>
+          <li><a href="#menu">🍳 Breakfast</a></li>
+          <li><a href="#menu">🥞 Crêpes</a></li>
+          <li><a href="#menu">☕ Coffee</a></li>
+          <li><a href="#menu">🥐 Pastries</a></li>
+          <li><a href="#menu">🥗 Salads</a></li>
+          <li><a href="#menu">🥪 Sandwiches</a></li>
+        </ul>
+      </div>
+
+      <!-- Hours -->
+      <div class="footer-col">
+        <h4>Opening Hours</h4>
+        <div class="footer-hours">
+          <div class="fh-row"><span class="fh-day">Mon – Sat</span><span class="fh-time">7am – 6pm</span></div>
+          <div class="fh-row"><span class="fh-day">Sunday</span><span class="fh-time">8am – 5pm</span></div>
+          <div class="fh-row" style="margin-top:16px;padding-top:12px;border-top:1px solid rgba(255,255,255,0.08);">
+            <span class="fh-day">📞 Phone</span>
+          </div>
+          <div class="fh-row">
+            <a href="tel:02083615800" style="color:rgba(255,253,252,0.8);font-weight:600;">020 8361 5800</a>
+          </div>
+          <div class="fh-row" style="margin-top:8px;">
+            <span class="fh-day">📍 Address</span>
+          </div>
+          <div class="fh-row">
+            <span class="fh-time" style="font-size:0.78rem;font-weight:400;color:rgba(255,253,252,0.55);">9 Hampden Square, N14 5JP</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p>&copy; 2025 Paris-Brest Patisserie. All rights reserved.</p>
+      <p>
+        <a href="#">Privacy Policy</a> &nbsp;·&nbsp;
+        <a href="#">Accessibility</a> &nbsp;·&nbsp;
+        <a href="https://www.google.com/maps/search/Paris-Brest+Patisserie+9+Hampden+Square+London+N14" target="_blank" rel="noopener">Google Business</a>
+      </p>
+    </div>
+  </div>
+</footer>
+
+<!-- Scroll to Top -->
+<button class="scroll-top" id="scrollTop" aria-label="Scroll to top">↑</button>
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
+<!-- ============================================
+     JAVASCRIPT
+============================================ -->
+<script>
+(function() {
+  'use strict';
+
+  // =====================
+  // DARK MODE
+  // =====================
+  const darkToggle = document.getElementById('darkToggle');
+  const darkIcon = document.getElementById('darkIcon');
+  const html = document.documentElement;
+
+  const savedTheme = localStorage.getItem('pb-theme') || 'light';
+  if (savedTheme === 'dark') {
+    html.setAttribute('data-theme', 'dark');
+    darkIcon.textContent = '☀️';
+  }
+
+  darkToggle.addEventListener('click', function() {
+    const isDark = html.getAttribute('data-theme') === 'dark';
+    html.setAttribute('data-theme', isDark ? 'light' : 'dark');
+    darkIcon.textContent = isDark ? '🌙' : '☀️';
+    localStorage.setItem('pb-theme', isDark ? 'light' : 'dark');
+  });
+
+  // =====================
+  // NAVBAR SCROLL
+  // =====================
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', function() {
+    navbar.classList.toggle('scrolled', window.scrollY > 80);
+  }, { passive: true });
+
+  // =====================
+  // MOBILE MENU
+  // =====================
+  const menuToggle = document.getElementById('menuToggle');
+  const menuClose = document.getElementById('menuClose');
+  const mobileMenu = document.getElementById('mobileMenu');
+
+  menuToggle.addEventListener('click', function() {
+    mobileMenu.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  });
+
+  menuClose.addEventListener('click', closeMobileMenu);
+
+  window.closeMobileMenu = function() {
+    mobileMenu.classList.remove('open');
+    document.body.style.overflow = '';
+  };
+
+  // =====================
+  // HERO PARALLAX
+  // =====================
+  const heroImg = document.getElementById('heroImg');
+  window.addEventListener('scroll', function() {
+    const scrolled = window.scrollY;
+    if (scrolled < window.innerHeight) {
+      heroImg.style.transform = 'translateY(' + (scrolled * 0.35) + 'px)';
+    }
+  }, { passive: true });
+
+  // =====================
+  // INTERIOR PARALLAX
+  // =====================
+  const interiorParallax = document.getElementById('interiorParallax');
+  const interiorImg = document.getElementById('interiorImg');
+
+  if (interiorParallax && interiorImg) {
+    window.addEventListener('scroll', function() {
+      const rect = interiorParallax.getBoundingClientRect();
+      if (rect.top < window.innerHeight && rect.bottom > 0) {
+        const offset = (rect.top / window.innerHeight) * 60;
+        interiorImg.style.transform = 'translateY(' + offset + 'px)';
+      }
+    }, { passive: true });
+  }
+
+  // =====================
+  // MENU TABS
+  // =====================
+  const menuTabs = document.querySelectorAll('.menu-tab');
+  const menuPanels = document.querySelectorAll('.menu-panel');
+
+  menuTabs.forEach(function(tab) {
+    tab.addEventListener('click', function() {
+      menuTabs.forEach(function(t) { t.classList.remove('active'); });
+      menuPanels.forEach(function(p) { p.classList.remove('active'); });
+      tab.classList.add('active');
+      const panel = document.getElementById('panel-' + tab.dataset.panel);
+      if (panel) panel.classList.add('active');
+    });
+  });
+
+  // =====================
+  // SCROLL REVEAL
+  // =====================
+  const revealObserver = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('revealed');
+        revealObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+  document.querySelectorAll('.reveal').forEach(function(el) {
+    revealObserver.observe(el);
+  });
+
+  // =====================
+  // COUNTER ANIMATION
+  // =====================
+  function animateCounter(el, target, duration) {
+    const start = Date.now();
+    const startVal = 0;
+    const isLarge = target > 1000;
+
+    function update() {
+      const elapsed = Date.now() - start;
+      const progress = Math.min(elapsed / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      const current = Math.round(startVal + (target - startVal) * eased);
+
+      if (isLarge) {
+        el.textContent = (current / 1000).toFixed(current >= 1000 ? 0 : 1) + 'k+';
+      } else {
+        el.textContent = current + (target > 100 ? '+' : '');
+      }
+
+      if (progress < 1) requestAnimationFrame(update);
+    }
+    requestAnimationFrame(update);
+  }
+
+  const statObserver = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        const el = entry.target;
+        const target = parseInt(el.dataset.count);
+        animateCounter(el, target, 2000);
+        statObserver.unobserve(el);
+      }
+    });
+  }, { threshold: 0.5 });
+
+  document.querySelectorAll('.stat-number[data-count]').forEach(function(el) {
+    statObserver.observe(el);
+  });
+
+  // =====================
+  // GALLERY — DRAG SCROLL
+  // =====================
+  const galleryWrapper = document.getElementById('galleryWrapper');
+  const galleryTrack = document.getElementById('galleryTrack');
+  const galleryPrev = document.getElementById('galleryPrev');
+  const galleryNext = document.getElementById('galleryNext');
+
+  let isDragging = false;
+  let startX = 0;
+  let scrollLeft = 0;
+  let currentOffset = 0;
+
+  galleryWrapper.addEventListener('mousedown', function(e) {
+    isDragging = true;
+    startX = e.pageX - galleryWrapper.offsetLeft;
+    scrollLeft = currentOffset;
+    galleryWrapper.style.cursor = 'grabbing';
+  });
+
+  window.addEventListener('mousemove', function(e) {
+    if (!isDragging) return;
+    e.preventDefault();
+    const x = e.pageX - galleryWrapper.offsetLeft;
+    const walk = (x - startX) * 1.5;
+    currentOffset = scrollLeft - walk;
+    galleryTrack.style.transform = 'translateX(-' + Math.max(0, currentOffset) + 'px)';
+  });
+
+  window.addEventListener('mouseup', function() {
+    isDragging = false;
+    galleryWrapper.style.cursor = 'grab';
+  });
+
+  // Touch events
+  let touchStartX = 0;
+  let touchScrollLeft = 0;
+
+  galleryWrapper.addEventListener('touchstart', function(e) {
+    touchStartX = e.touches[0].pageX;
+    touchScrollLeft = currentOffset;
+  }, { passive: true });
+
+  galleryWrapper.addEventListener('touchmove', function(e) {
+    const x = e.touches[0].pageX;
+    const walk = (touchStartX - x) * 1.2;
+    currentOffset = Math.max(0, touchScrollLeft + walk);
+    galleryTrack.style.transform = 'translateX(-' + currentOffset + 'px)';
+  }, { passive: true });
+
+  galleryPrev.addEventListener('click', function() {
+    currentOffset = Math.max(0, currentOffset - 400);
+    galleryTrack.style.transform = 'translateX(-' + currentOffset + 'px)';
+  });
+
+  galleryNext.addEventListener('click', function() {
+    const maxScroll = galleryTrack.scrollWidth - galleryWrapper.offsetWidth;
+    currentOffset = Math.min(maxScroll, currentOffset + 400);
+    galleryTrack.style.transform = 'translateX(-' + currentOffset + 'px)';
+  });
+
+  // =====================
+  // LIGHTBOX
+  // =====================
+  const lightbox = document.getElementById('lightbox');
+  const lightboxImg = document.getElementById('lightboxImg');
+  const lightboxClose = document.getElementById('lightboxClose');
+  const lightboxPrev = document.getElementById('lightboxPrev');
+  const lightboxNext = document.getElementById('lightboxNext');
+  const galleryItems = document.querySelectorAll('.gallery-item');
+  let currentLightboxIndex = 0;
+
+  galleryItems.forEach(function(item, index) {
+    item.addEventListener('click', function() {
+      currentLightboxIndex = index;
+      openLightbox(item.dataset.src);
+    });
+  });
+
+  function openLightbox(src) {
+    lightbox.classList.add('open');
+    lightboxImg.src = src;
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeLightbox() {
+    lightbox.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  lightboxClose.addEventListener('click', closeLightbox);
+  lightbox.addEventListener('click', function(e) {
+    if (e.target === lightbox) closeLightbox();
+  });
+
+  lightboxPrev.addEventListener('click', function() {
+    currentLightboxIndex = (currentLightboxIndex - 1 + galleryItems.length) % galleryItems.length;
+    lightboxImg.src = galleryItems[currentLightboxIndex].dataset.src;
+  });
+
+  lightboxNext.addEventListener('click', function() {
+    currentLightboxIndex = (currentLightboxIndex + 1) % galleryItems.length;
+    lightboxImg.src = galleryItems[currentLightboxIndex].dataset.src;
+  });
+
+  document.addEventListener('keydown', function(e) {
+    if (!lightbox.classList.contains('open')) return;
+    if (e.key === 'Escape') closeLightbox();
+    if (e.key === 'ArrowLeft') lightboxPrev.click();
+    if (e.key === 'ArrowRight') lightboxNext.click();
+  });
+
+  // =====================
+  // CONTACT FORM
+  // =====================
+  const contactForm = document.getElementById('contactForm');
+  const toast = document.getElementById('toast');
+
+  function showToast(message) {
+    toast.textContent = message;
+    toast.classList.add('show');
+    setTimeout(function() { toast.classList.remove('show'); }, 4000);
+  }
+
+  contactForm.addEventListener('submit', function(e) {
+    e.preventDefault();
+    const firstName = document.getElementById('firstName').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const message = document.getElementById('message').value.trim();
+
+    if (!firstName || !email || !message) {
+      showToast('⚠️ Please fill in all required fields.');
+      return;
+    }
+
+    if (!/\S+@\S+\.\S+/.test(email)) {
+      showToast('⚠️ Please enter a valid email address.');
+      return;
+    }
+
+    showToast('✅ Thank you, ' + firstName + '! We\'ll be in touch shortly.');
+    contactForm.reset();
+  });
+
+  // =====================
+  // SCROLL TO TOP
+  // =====================
+  const scrollTopBtn = document.getElementById('scrollTop');
+
+  window.addEventListener('scroll', function() {
+    scrollTopBtn.classList.toggle('visible', window.scrollY > 500);
+  }, { passive: true });
+
+  scrollTopBtn.addEventListener('click', function() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+
+  // =====================
+  // MOUSE CURSOR GLOW
+  // =====================
+  const cursorGlow = document.getElementById('cursorGlow');
+  let mouseX = 0, mouseY = 0;
+  let glowX = 0, glowY = 0;
+
+  document.addEventListener('mousemove', function(e) {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+  });
+
+  function animateCursor() {
+    glowX += (mouseX - glowX) * 0.08;
+    glowY += (mouseY - glowY) * 0.08;
+    cursorGlow.style.left = glowX + 'px';
+    cursorGlow.style.top = glowY + 'px';
+    requestAnimationFrame(animateCursor);
+  }
+
+  animateCursor();
+
+  // =====================
+  // HIGHLIGHT TODAY'S HOURS
+  // =====================
+  function highlightToday() {
+    const days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+    const today = days[new Date().getDay()];
+    const hourRows = document.querySelectorAll('.hours-row');
+
+    hourRows.forEach(function(row) {
+      const dayEl = row.querySelector('.hours-day');
+      if (dayEl && dayEl.textContent.trim() === today) {
+        dayEl.style.color = 'var(--accent)';
+        dayEl.style.fontWeight = '700';
+        const timeEl = row.querySelector('.hours-time, .hours-today');
+        if (timeEl) {
+          timeEl.style.color = 'var(--accent)';
+          timeEl.style.fontWeight = '700';
+        }
+      }
+    });
+  }
+
+  highlightToday();
+
+  // =====================
+  // AMBIENT PARTICLE SYSTEM
+  // =====================
+  function createParticle() {
+    const particle = document.createElement('div');
+    const size = Math.random() * 4 + 2;
+    const x = Math.random() * 100;
+    const duration = Math.random() * 20 + 15;
+    const delay = Math.random() * 10;
+
+    particle.style.cssText = [
+      'position:fixed',
+      'left:' + x + 'vw',
+      'bottom:' + (Math.random() * 100) + 'vh',
+      'width:' + size + 'px',
+      'height:' + size + 'px',
+      'background:rgba(129,160,211,0.15)',
+      'border-radius:50%',
+      'pointer-events:none',
+      'z-index:0',
+      'animation:steam ' + duration + 's ease-in-out ' + delay + 's infinite'
+    ].join(';');
+
+    document.body.appendChild(particle);
+
+    setTimeout(function() {
+      if (particle.parentNode) {
+        particle.parentNode.removeChild(particle);
+      }
+    }, (duration + delay) * 1000 * 2);
+  }
+
+  // Create a few ambient particles
+  for (let i = 0; i < 8; i++) {
+    setTimeout(createParticle, i * 2000);
+  }
+
+  // =====================
+  // REVIEW TRACK — PAUSE ON HOVER
+  // =====================
+  const reviewsTrack = document.getElementById('reviewsTrack');
+  if (reviewsTrack) {
+    reviewsTrack.addEventListener('mouseenter', function() {
+      reviewsTrack.style.animationPlayState = 'paused';
+    });
+    reviewsTrack.addEventListener('mouseleave', function() {
+      reviewsTrack.style.animationPlayState = 'running';
+    });
+
+    // Touch pause
+    reviewsTrack.addEventListener('touchstart', function() {
+      reviewsTrack.style.animationPlayState = 'paused';
+    }, { passive: true });
+    reviewsTrack.addEventListener('touchend', function() {
+      reviewsTrack.style.animationPlayState = 'running';
+    }, { passive: true });
+  }
+
+  // =====================
+  // SMOOTH ANCHOR SCROLL
+  // =====================
+  document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
+    anchor.addEventListener('click', function(e) {
+      const href = anchor.getAttribute('href');
+      if (href === '#') return;
+      const target = document.querySelector(href);
+      if (target) {
+        e.preventDefault();
+        const offset = 80;
+        const top = target.getBoundingClientRect().top + window.pageYOffset - offset;
+        window.scrollTo({ top: top, behavior: 'smooth' });
+      }
+    });
+  });
+
+  // =====================
+  // HERO OPEN STATUS
+  // =====================
+  function updateOpenStatus() {
+    const now = new Date();
+    const day = now.getDay(); // 0=Sun
+    const hour = now.getHours();
+    const minute = now.getMinutes();
+    const time = hour + minute / 60;
+
+    let openTime = 7;
+    let closeTime = 18;
+
+    if (day === 0) { // Sunday
+      openTime = 8;
+      closeTime = 17;
+    }
+
+    const eyebrow = document.querySelector('.hero-eyebrow');
+    if (eyebrow) {
+      const dot = eyebrow.querySelector('.dot');
+      if (time >= openTime && time < closeTime) {
+        if (dot) dot.style.background = '#4CAF50';
+        const days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+        const todayName = days[day];
+        const closeHour = day === 0 ? '5pm' : '6pm';
+        eyebrow.innerHTML = '<span class="dot" style="background:#4CAF50;width:6px;height:6px;border-radius:50%;animation:pulse 2s ease-in-out infinite;display:block;"></span> Open Today · ' + todayName + ' until ' + closeHour;
+      } else {
+        if (dot) dot.style.background = '#F44336';
+        eyebrow.innerHTML = '<span class="dot" style="background:#F44336;width:6px;height:6px;border-radius:50%;display:block;"></span> Currently Closed · Opens at ' + (day === 0 ? '8am' : '7am');
+      }
+    }
+  }
+
+  updateOpenStatus();
+
+  console.log('%c Paris-Brest Patisserie 🥐☕', 'font-size:20px;font-weight:bold;color:#81A0D3;background:#F8F5EF;padding:8px 16px;border-radius:8px;');
+  console.log('%c Premium Digital Experience — Powered with craft & care.', 'font-size:12px;color:#D28E75;');
+
+})();
+</script>
+
+</body>
+</html>
